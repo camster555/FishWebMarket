@@ -1,0 +1,5 @@
+# Created at 2024-05-28T21:06:09.335
+Boot Manifest-JAR contains absolute paths in classpath 'D:\OneDrive\A.CodeFiles\IdeaProjects\FishWebMarket\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+
