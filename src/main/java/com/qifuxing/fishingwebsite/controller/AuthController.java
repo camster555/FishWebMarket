@@ -3,6 +3,7 @@ package com.qifuxing.fishingwebsite.controller;
 import com.qifuxing.fishingwebsite.model.User;
 import com.qifuxing.fishingwebsite.service.AuthService;
 import com.qifuxing.fishingwebsite.specificDTO.LoginDTO;
+import com.qifuxing.fishingwebsite.specificDTO.UserDTO;
 import com.qifuxing.fishingwebsite.specificDTO.UserRegistrationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,9 +30,9 @@ public class AuthController {
     //so first we map to 'UserRegistrationDTO' as seen in the parameter with RequestBody annotation, then we map
     //it from 'UserRegistrationDTO' to User class in AuthService class
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody UserRegistrationDTO userRegistrationDTO){
-        authService.registerUser(userRegistrationDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body("User registration successful");
+    public ResponseEntity<UserDTO> registerUser(@RequestBody UserRegistrationDTO userRegistrationDTO){
+        UserDTO userDTO = authService.registerUser(userRegistrationDTO);
+        return ResponseEntity.ok(userDTO);
     }
 
     //don't need to handle exception since will be handled by global exception class before even reaching back to AuthController class.

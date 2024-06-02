@@ -96,4 +96,15 @@ public class PaymentController {
         List<PaymentDTO> paymentDTOList = paymentService.findByProviderId(providerId);
         return ResponseEntity.ok(paymentDTOList);
     }
+
+    @DeleteMapping("/all")
+    public ResponseEntity<Void> deleteAll(){
+        paymentService.deleteAll();
+        return ResponseEntity.noContent().build();
+    }
+    @DeleteMapping("/reset-auto-increment")
+    public ResponseEntity<Void> resetAutoIncrement(){
+        paymentService.resetAutoIdIncrement();
+        return ResponseEntity.noContent().build();
+    }
 }

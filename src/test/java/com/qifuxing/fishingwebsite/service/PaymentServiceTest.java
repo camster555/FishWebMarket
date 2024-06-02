@@ -15,9 +15,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Service;
-
-import javax.jws.soap.SOAPBinding;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
@@ -384,7 +383,7 @@ public class PaymentServiceTest {
 
     @Test
     void testFindByProviderId_Success() {
-        when(paymentRepository.findByProviderId("provider123")).thenReturn(Arrays.asList(payment, payment2));
+        when(paymentRepository.findByPaymentProviderId("provider123")).thenReturn(Arrays.asList(payment, payment2));
 
         List<PaymentDTO> result = paymentService.findByProviderId("provider123");
 
@@ -393,15 +392,15 @@ public class PaymentServiceTest {
         assertEquals(payment.getId(), result.get(0).getId());
         assertEquals(payment2.getId(), result.get(1).getId());
 
-        verify(paymentRepository, times(1)).findByProviderId("provider123");
+        verify(paymentRepository, times(1)).findByPaymentProviderId("provider123");
     }
 
     @Test
     void testFindByProviderId_EmptyList() {
-        when(paymentRepository.findByProviderId("provider123")).thenReturn(Collections.emptyList());
+        when(paymentRepository.findByPaymentProviderId("provider123")).thenReturn(Collections.emptyList());
 
         assertThrows(ResourceNotFoundException.class, () -> paymentService.findByProviderId("provider123"));
 
-        verify(paymentRepository, times(1)).findByProviderId("provider123");
+        verify(paymentRepository, times(1)).findByPaymentProviderId("provider123");
     }
 }

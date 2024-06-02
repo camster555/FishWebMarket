@@ -54,4 +54,15 @@ public class OrderController {
         return  ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/all")
+    public ResponseEntity<Void> deleteAll(){
+        orderService.deleteAll();
+        return ResponseEntity.noContent().build();
+    }
+    @DeleteMapping("/reset-auto-increment")
+    public ResponseEntity<Void> resetAutoIncrement(){
+        orderService.resetAutoIdIncrement();
+        return ResponseEntity.noContent().build();
+    }
+
 }

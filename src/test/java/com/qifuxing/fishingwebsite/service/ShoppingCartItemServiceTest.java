@@ -44,9 +44,11 @@ public class ShoppingCartItemServiceTest {
     void setUp() {
         shoppingCart = new ShoppingCart();
         shoppingCart.setId(1L);
+        shoppingCart.setTotalPrice(200.0);
 
         product = new Product();
         product.setId(1L);
+        product.setPrice(100.0);
 
         shoppingCartItem = new ShoppingCartItem();
         shoppingCartItem.setId(1L);
@@ -73,7 +75,9 @@ public class ShoppingCartItemServiceTest {
 
         assertNotNull(savedItem);
         assertEquals(shoppingCartItem.getId(), savedItem.getId());
+        assertEquals(400.0, shoppingCart.getTotalPrice());
         verify(shoppingCartItemRepository, times(1)).save(any(ShoppingCartItem.class));
+        verify(shoppingCartRepository, times(1)).save(any(ShoppingCart.class));
     }
 
     @Test
@@ -89,26 +93,31 @@ public class ShoppingCartItemServiceTest {
 
     @Test
     void testUpdateShoppingCartItem() {
-        when(shoppingCartItemRepository.existsById(any(Long.class))).thenReturn(true);
+        when(shoppingCartItemRepository.findById(any(Long.class))).thenReturn(Optional.of(shoppingCartItem));
         when(shoppingCartRepository.findById(any(Long.class))).thenReturn(Optional.of(shoppingCart));
         when(productRepository.findById(any(Long.class))).thenReturn(Optional.of(product));
         when(shoppingCartItemRepository.save(any(ShoppingCartItem.class))).thenReturn(shoppingCartItem);
 
+        shoppingCartItemDTO.setQuantity(3);
         ShoppingCartItemDTO updatedItem = shoppingCartItemService.updateShoppingCartItem(1L, shoppingCartItemDTO);
 
         assertNotNull(updatedItem);
         assertEquals(shoppingCartItem.getId(), updatedItem.getId());
+        assertEquals(300.0, shoppingCart.getTotalPrice());
         verify(shoppingCartItemRepository, times(1)).save(any(ShoppingCartItem.class));
+        verify(shoppingCartRepository, times(1)).save(any(ShoppingCart.class));
     }
 
     @Test
     void testDeleteById() {
-        when(shoppingCartItemRepository.existsById(any(Long.class))).thenReturn(true);
+        when(shoppingCartItemRepository.findById(any(Long.class))).thenReturn(Optional.of(shoppingCartItem));
         doNothing().when(shoppingCartItemRepository).deleteById(any(Long.class));
 
         shoppingCartItemService.deleteById(1L);
 
+        assertEquals(0.0, shoppingCart.getTotalPrice());
         verify(shoppingCartItemRepository, times(1)).deleteById(any(Long.class));
+        verify(shoppingCartRepository, times(1)).save(any(ShoppingCart.class));
     }
 
     @Test
@@ -124,7 +133,7 @@ public class ShoppingCartItemServiceTest {
 
     @Test
     void testUpdateShoppingCartItem_NotFound() {
-        when(shoppingCartItemRepository.existsById(any(Long.class))).thenReturn(false);
+        when(shoppingCartItemRepository.findById(any(Long.class))).thenReturn(Optional.empty());
 
         assertThrows(ResourceNotFoundException.class, () -> {
             shoppingCartItemService.updateShoppingCartItem(1L, shoppingCartItemDTO);
@@ -146,7 +155,7 @@ public class ShoppingCartItemServiceTest {
 
     @Test
     void testDeleteById_NotFound() {
-        when(shoppingCartItemRepository.existsById(any(Long.class))).thenReturn(false);
+        when(shoppingCartItemRepository.findById(any(Long.class))).thenReturn(Optional.empty());
 
         assertThrows(ResourceNotFoundException.class, () -> {
             shoppingCartItemService.deleteById(1L);

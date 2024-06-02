@@ -1,5 +1,6 @@
 package com.qifuxing.fishingwebsite.service;
 
+import com.qifuxing.fishingwebsite.exception.InvalidInputException;
 import com.qifuxing.fishingwebsite.exception.ResourceNotFoundException;
 import com.qifuxing.fishingwebsite.model.Order;;
 import com.qifuxing.fishingwebsite.model.Product;
@@ -12,7 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +31,7 @@ import java.util.stream.Collectors;
  * @version 1.0.0
  */
 
+//request field names like user_id must match userDTO class fields.
 @Service
 public class OrderService {
     private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
@@ -38,11 +42,13 @@ public class OrderService {
     private UserRepository userRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private EntityManager entityManager;
 
     private OrderDTO convertToOrderDto(Order order){
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setId(order.getId());
-        orderDTO.setUser_id(order.getId());
+        orderDTO.setUser_id(order.getUser().getId());
         //so here using getProducts() from order class to stream the products then using map to get each Product and
         //also using getId() method from Product class and this is possible because in order class we have
         //'private Set<Product> products;' which is a set of products from Product class which means we can use its methods.
@@ -56,6 +62,7 @@ public class OrderService {
 
     public Order convertToOrderEntity(OrderDTO orderDTO){
         Order order = new Order();
+        //order.setId(orderDTO.getId());
         //logger.debug("Converting OrderDTO to Order entity. User ID: {}", orderDTO.getUser_id());
         //when request is made, the id of user is given then uses getUser_id method from orderDTO to get it and then find User.
         User user = userRepository.findById(orderDTO.getUser_id()).orElseThrow(() -> new ResourceNotFoundException("Id:"+orderDTO.getUser_id()+" not found."));
@@ -80,17 +87,16 @@ public class OrderService {
         Order saveOrder = orderRepository.save(order);
         return convertToOrderDto(saveOrder);
     }
-
     public OrderDTO updateOrder(Long id, OrderDTO orderDTO){
         if (!orderRepository.existsById(id)){
             throw new ResourceNotFoundException("Id order:" + id + " not found.");
         }
 
         Order order = convertToOrderEntity(orderDTO);
-        //setting id to see which order should be updated needs to be in this method instead of the convertToOrder method
-        //as in the convert method new instances are created so jpa does not know which id it belongs to, if you do setId
-        //in the converterToOrder method and not in this method then it WILL NOT update and will create a new order.
-        //so it needs to be null so creation method can create new order id and so jpa updates the existing id in this method.
+        //so setId need to be in the update method itself is because if you debug you will see that orderDTO does not contain
+        //the order id itself since 'Long id', this part contains the order id, so when convert method is called, even if
+        //you set id, it is null, so it would instead create a new order since 'save method' will auto create it if it does
+        //not know which order id to replace.
         order.setId(id);
         Order updateOrder = orderRepository.save(order);
         return convertToOrderDto(updateOrder);
@@ -115,5 +121,23 @@ public class OrderService {
             throw new ResourceNotFoundException("Order by this id not found so can't be deleted");
         }
         orderRepository.deleteById(id);
+    }
+
+    public void deleteAll(){
+        if (orderRepository.count() == 0){
+            throw new ResourceNotFoundException("Order list already empty");
+        }
+        orderRepository.deleteAll();
+    }
+    //Transactional annotation ensures this method is used during transaction, since when request is made, spring starts
+    //new 'transaction during runtime ensuring is that any part of the method that is transactional fails that database
+    //goes back to the previous state.
+    @Transactional
+    public void resetAutoIdIncrement(){
+        if (orderRepository.count()==0){
+            entityManager.createNativeQuery("ALTER TABLE orders AUTO_INCREMENT = 1").executeUpdate();
+        }else {
+            throw new InvalidInputException("Order list not empty, cannot reset auto increment to 1");
+        }
     }
 }

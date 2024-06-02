@@ -45,4 +45,15 @@ public class ShoppingCartItemController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/all")
+    public ResponseEntity<Void> deleteAll(){
+        shoppingCartItemService.deleteAll();
+        return ResponseEntity.noContent().build();
+    }
+    @DeleteMapping("/reset-auto-increment")
+    public ResponseEntity<Void> resetAutoIncrement(){
+        shoppingCartItemService.resetAutoIdIncrement();
+        return ResponseEntity.noContent().build();
+    }
+
 }

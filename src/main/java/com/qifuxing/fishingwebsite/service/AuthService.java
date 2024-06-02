@@ -5,6 +5,7 @@ import com.qifuxing.fishingwebsite.exception.UsernameAlreadyExistsException;
 import com.qifuxing.fishingwebsite.model.User;
 import com.qifuxing.fishingwebsite.repository.UserRepository;
 import com.qifuxing.fishingwebsite.specificDTO.LoginDTO;
+import com.qifuxing.fishingwebsite.specificDTO.UserDTO;
 import com.qifuxing.fishingwebsite.specificDTO.UserRegistrationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,22 +37,33 @@ public class AuthService {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
 
-    public void registerUser(UserRegistrationDTO userRegistrationDTO){
+    private UserDTO convertToDto(User user){
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUsername(user.getUsername());
+        userDTO.setEmail(user.getEmail());
+        return userDTO;
+    }
+
+    public UserDTO registerUser(UserRegistrationDTO userRegistrationDTO){
         //first checking if username already exist
         if(userRepository.findByUsername(userRegistrationDTO.getUsername())!= null){
             throw new UsernameAlreadyExistsException("User already registered");
         }
+        if(userRepository.findByEmail(userRegistrationDTO.getEmail())!= null){
+            throw new UsernameAlreadyExistsException("Email already registered");
+        }
 
         User user = new User();
         user.setUsername(userRegistrationDTO.getUsername());
-        //since it is configured in securityconfig class that passwords need to be encoded so if the password saved to
+        //since it is configured in securityConfig class that passwords need to be encoded so if the password saved to
         //mysql database was plain, then when pass request sent from bruno is also plain then it wouldn't be correct
         // even if the plain password is correct so make sure when it's saved to sql it is also encoded.
         user.setPassword(passwordEncoder.encode(userRegistrationDTO.getPassword()));
         user.setEmail(userRegistrationDTO.getEmail());
 
         //saving new registered user to database, and it will auto generate id.
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        return convertToDto(savedUser);
     }
 
     public User findByUsername(String username){
@@ -60,7 +72,7 @@ public class AuthService {
 
     public UserDetails authenticateUser(LoginDTO loginDTO){
     //    logger.info("Authenticating user: {}", loginDTO.getUsername());
-        //get userdetail instance which contains the username and password
+        //get userDetail instance which contains the username and password
         //in 'loadUserByUsername' already checks for username in the database
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(loginDTO.getUsername());
         //so the rest is to check for null and correct password

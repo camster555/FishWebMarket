@@ -53,4 +53,19 @@ public class ShoppingCartController {
         ShoppingCartDTO updatedShoppingCart = shoppingCartService.updateShoppingCart(id,shoppingCartDTO);
         return ResponseEntity.ok(updatedShoppingCart);
     }
+    @PostMapping("/{id}/update-total-price")
+    public ResponseEntity<ShoppingCartDTO> updateTotalPrice(@PathVariable Long id){
+        ShoppingCartDTO shoppingCartDTO = shoppingCartService.updateTotalPrice(id);
+        return ResponseEntity.ok(shoppingCartDTO);
+    }
+    @DeleteMapping("/all")
+    public ResponseEntity<Void> deleteAll(){
+        shoppingCartService.deleteAll();
+        return ResponseEntity.noContent().build();
+    }
+    @DeleteMapping("/reset-auto-increment")
+    public ResponseEntity<Void> resetAutoIncrement(){
+        shoppingCartService.resetAutoIdIncrement();
+        return ResponseEntity.noContent().build();
+    }
 }

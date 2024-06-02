@@ -30,5 +30,15 @@ public class UserController {
         userService.delete(id);
         return ResponseEntity.noContent().build();
     }
+    @DeleteMapping("/all")
+    public ResponseEntity<Void> deleteAll(){
+        userService.deleteAll();
+        return ResponseEntity.noContent().build();
+    }
+    @DeleteMapping("/reset-auto-increment")
+    public ResponseEntity<Void> resetAutoIncrement(){
+        userService.resetAutoIdIncrement();
+        return ResponseEntity.noContent().build();
+    }
 
 }

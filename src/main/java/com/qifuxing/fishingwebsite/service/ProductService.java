@@ -1,5 +1,6 @@
 package com.qifuxing.fishingwebsite.service;
 
+import com.qifuxing.fishingwebsite.exception.InvalidInputException;
 import com.qifuxing.fishingwebsite.exception.ResourceNotFoundException;
 import com.qifuxing.fishingwebsite.model.Product;
 import com.qifuxing.fishingwebsite.repository.ProductRepository;
@@ -8,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +31,8 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private EntityManager entityManager;
 
     //for list method to return product, we want to convert to the productdto class first to allow flexibility for
     //future modifications and limit data exposure to clients to protect sensitive fields if have any.
@@ -141,5 +147,23 @@ public class ProductService {
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
 
         productRepository.delete(product);
+    }
+
+    public void deleteAll(){
+        if (productRepository.count() == 0){
+            throw new ResourceNotFoundException("Product list already empty");
+        }
+        productRepository.deleteAll();
+    }
+    //Transactional annotation ensures this method is used during transaction, since when request is made, spring starts
+    //new 'transaction during runtime ensuring is that any part of the method that is transactional fails that database
+    //goes back to the previous state.
+    @Transactional
+    public void resetAutoIdIncrement(){
+        if (productRepository.count()==0){
+            entityManager.createNativeQuery("ALTER TABLE product AUTO_INCREMENT = 1").executeUpdate();
+        }else {
+            throw new InvalidInputException("Product list not empty, cannot reset auto increment to 1");
+        }
     }
 }

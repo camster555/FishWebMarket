@@ -1,5 +1,6 @@
 package com.qifuxing.fishingwebsite.service;
 
+import com.qifuxing.fishingwebsite.exception.InvalidInputException;
 import com.qifuxing.fishingwebsite.exception.ResourceNotFoundException;
 import com.qifuxing.fishingwebsite.model.Order;
 import com.qifuxing.fishingwebsite.model.Payment;
@@ -11,7 +12,9 @@ import com.qifuxing.fishingwebsite.specificDTO.PaymentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +38,8 @@ public class PaymentService {
     UserRepository userRepository;
     @Autowired
     OrderRepository orderRepository;
+    @Autowired
+    EntityManager entityManager;
 
     public Payment convertToEntity(PaymentDTO paymentDTO){
         Payment existingPayment = new Payment();
@@ -54,9 +59,8 @@ public class PaymentService {
         Order order = orderRepository.findById(paymentDTO.getOrderId()).orElseThrow(
                 ()->new ResourceNotFoundException("Order with this id not found:"+paymentDTO.getOrderId()));
         existingPayment.setOrderId(order);
-        User user = userRepository.findById(paymentDTO.getUserId()).orElseThrow(
-                () ->new ResourceNotFoundException("User with this id not found:"+paymentDTO.getUserId()));
-        existingPayment.setUserId(user);
+        //don't need to search for userid since it is already set in order entity.
+        existingPayment.setUserId(order.getUser());
         existingPayment.setTransactionDate(paymentDTO.getTransactionDate());
         return existingPayment;
     }
@@ -83,6 +87,17 @@ public class PaymentService {
     public PaymentDTO createPayment(PaymentDTO paymentDTO){
         Payment payment = convertToEntity(paymentDTO);
         Payment savedPayment = paymentRepository.save(payment);
+
+        //update order status when payment is created successfully
+        Order order = payment.getOrderId();
+        if ("Completed".equals(paymentDTO.getStatus())){
+            order.setStatus("Payment successful");
+        } else if ("Failed".equals(paymentDTO.getStatus())){
+            order.setStatus("Payment failed");
+        } else {
+            order.setStatus("Payment pending");
+        }
+        orderRepository.save(order);
         return convertToDTO(savedPayment);
     }
 
@@ -179,6 +194,24 @@ public class PaymentService {
             throw new ResourceNotFoundException("Payments with this provider id not found:" + providerId);
         }
         return paymentList.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    public void deleteAll(){
+        if (paymentRepository.count() == 0){
+            throw new ResourceNotFoundException("Payment list already empty");
+        }
+        paymentRepository.deleteAll();
+    }
+    //Transactional annotation ensures this method is used during transaction, since when request is made, spring starts
+    //new 'transaction during runtime ensuring is that any part of the method that is transactional fails that database
+    //goes back to the previous state.
+    @Transactional
+    public void resetAutoIdIncrement(){
+        if (paymentRepository.count()==0){
+            entityManager.createNativeQuery("ALTER TABLE payment AUTO_INCREMENT = 1").executeUpdate();
+        }else {
+            throw new InvalidInputException("Payment list not empty, cannot reset auto increment to 1");
+        }
     }
 
 }

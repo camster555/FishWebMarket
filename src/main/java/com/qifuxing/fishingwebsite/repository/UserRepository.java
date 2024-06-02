@@ -21,4 +21,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     //jpa will auto map it to the field, but the User class must have Username field or would produce error.
     //during runtime jpa will sent query when this method is called to the mysql to find the username for user.
     User findByUsername(String username);
+    User findByEmail(String username);
 }
