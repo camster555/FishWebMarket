@@ -22,6 +22,13 @@
             <version>2.7.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>4.39.86.ALL</version>
+        </dependency>
+
+
         <!-- MySQL Connector -->
         <dependency>
             <groupId>mysql</groupId>
@@ -102,6 +109,10 @@
                         </goals>
                     </execution>
                 </executions>
+                <!--to get JAR file-->
+                <configuration>
+                    <mainClass>com.qifuxing.fishingwebsite.FishWebApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>

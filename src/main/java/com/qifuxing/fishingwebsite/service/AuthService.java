@@ -1,6 +1,7 @@
 package com.qifuxing.fishingwebsite.service;
 
 import com.qifuxing.fishingwebsite.exception.LoginFailedException;
+import com.qifuxing.fishingwebsite.exception.ResourceNotFoundException;
 import com.qifuxing.fishingwebsite.exception.UsernameAlreadyExistsException;
 import com.qifuxing.fishingwebsite.model.User;
 import com.qifuxing.fishingwebsite.repository.UserRepository;
@@ -45,6 +46,18 @@ public class AuthService {
     }
 
     public UserDTO registerUser(UserRegistrationDTO userRegistrationDTO){
+
+        // Check if any of the fields are empty or null
+        if (userRegistrationDTO.getUsername() == null || userRegistrationDTO.getUsername().isEmpty()) {
+            throw new ResourceNotFoundException("Invalid input");
+        }
+        if (userRegistrationDTO.getEmail() == null || userRegistrationDTO.getEmail().isEmpty()) {
+            throw new ResourceNotFoundException("Invalid input");
+        }
+        if (userRegistrationDTO.getPassword() == null || userRegistrationDTO.getPassword().isEmpty()) {
+            throw new ResourceNotFoundException("Invalid input");
+        }
+
         //first checking if username already exist
         if(userRepository.findByUsername(userRegistrationDTO.getUsername())!= null){
             throw new UsernameAlreadyExistsException("User already registered");
@@ -71,7 +84,7 @@ public class AuthService {
     }
 
     public UserDetails authenticateUser(LoginDTO loginDTO){
-    //    logger.info("Authenticating user: {}", loginDTO.getUsername());
+        //logger.info("Authenticating user: {}", loginDTO.getUsername());
         //get userDetail instance which contains the username and password
         //in 'loadUserByUsername' already checks for username in the database
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(loginDTO.getUsername());

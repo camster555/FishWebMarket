@@ -1,5 +1,8 @@
 package com.qifuxing.fishingwebsite.service;
 
+import com.qifuxing.fishingwebsite.exception.LoginFailedException;
+import com.qifuxing.fishingwebsite.exception.ResourceNotFoundException;
+import com.qifuxing.fishingwebsite.exception.UsernameAlreadyExistsException;
 import com.qifuxing.fishingwebsite.model.User;
 import com.qifuxing.fishingwebsite.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +33,17 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // Check if the username is null or empty
+        if (username == null || username.isEmpty()) {
+            throw new ResourceNotFoundException("Invalid Input");
+        }
         //logger.info("Attempting to load user by username: {}", username);
         User user = userRepository.findByUsername(username);
         //so user here is now fetched by using userRepository and then proceed to convert to UserDetails instance by
         //builder pattern if not null.
         if (user == null) {
-        //    logger.warn("User not found(Logger): {}", username);
-            throw new UsernameNotFoundException("User not found");
+            //logger.warn("User not found(Logger): {}", username);
+            throw new UsernameAlreadyExistsException("Invalid username or password");
         }
         //below uses the builder pattern.
         //'org.springframework.security.core.userdetails.User.builder()' is a convenient way to create instance of

@@ -28,35 +28,41 @@ public class GlobalExceptionHandler {
 
     //will handle specific exceptions from 'UsernameAlreadyExistsException.class'
     @ExceptionHandler(UsernameAlreadyExistsException.class)
-    //what type of http status code to return which is 409 conflict, this way don't have to explicitly set in return
-    //line of code
-    @ResponseStatus(HttpStatus.CONFLICT)
-    public ResponseEntity<String> handleUsernameDuplicateException(UsernameAlreadyExistsException eMsg){
-        return new ResponseEntity<>(eMsg.getMessage(), HttpStatus.CONFLICT);
+    public ResponseEntity<?> handleUsernameDuplicateException(UsernameAlreadyExistsException eMsg){
+        //logger.error("UsernameAlreadyExistsException: " + eMsg);
+        //need to create custom class to return json body as spring auto converts it to json but only if it is
+        //structured in a class correctly.
+        ErrorResponse errorResponse = new ErrorResponse("409", eMsg.getMessage());
+        //the second part 'HttpStatus.UNAUTHORIZED)' is the status code that will be returned to the client and what we
+        //see on login page inspect mode.
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(LoginFailedException.class)
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ResponseEntity<String> handlerUserLoginFailed(LoginFailedException eMsg){
-        return new ResponseEntity<>(eMsg.getMessage(), HttpStatus.UNAUTHORIZED);
+    public ResponseEntity<?> handlerUserLoginFailed(LoginFailedException eMsg){
+        ErrorResponse errorResponse = new ErrorResponse("401", eMsg.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(InvalidInputException.class)
     public ResponseEntity<?> handlerInvalidInputException(InvalidInputException eMsg){
-        logger.error("InvalidInputException: " + eMsg.getMessage());
-        return new ResponseEntity<>(eMsg.getMessage(), HttpStatus.BAD_REQUEST);
+        //logger.error("InvalidInputException: " + eMsg.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse("400", eMsg.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     //this exception happens spring tries to convert HTTP message but since it is empty it won't even reach controller
     //class or it's methods.
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<?> handleHTTPMessageNotReadableException(HttpMessageNotReadableException eMsg){
-        return new ResponseEntity<>("Request body is missing or invalid", HttpStatus.BAD_REQUEST);
+        ErrorResponse errorResponse = new ErrorResponse("400", eMsg.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException eMsg){
-        return new ResponseEntity<>(eMsg.getMessage(),HttpStatus.NOT_FOUND);
+        ErrorResponse errorResponse = new ErrorResponse("404", eMsg.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
 }

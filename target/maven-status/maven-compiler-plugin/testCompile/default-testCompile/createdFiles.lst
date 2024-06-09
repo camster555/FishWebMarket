@@ -1,4 +1,11 @@
 com\qifuxing\fishingwebsite\service\ProductServiceTest.class
 com\qifuxing\fishingwebsite\package-info.class
+com\qifuxing\fishingwebsite\service\UserServiceTest.class
+com\qifuxing\fishingwebsite\service\CustomUserDetailsServiceTest.class
+com\qifuxing\fishingwebsite\service\OrderServiceTest.class
+com\qifuxing\fishingwebsite\service\PaymentServiceTest.class
 com\package-info.class
+com\qifuxing\fishingwebsite\service\ShoppingCartServiceTest.class
+com\qifuxing\fishingwebsite\service\AuthServiceTest.class
+com\qifuxing\fishingwebsite\service\ShoppingCartItemServiceTest.class
 com\qifuxing\package-info.class
