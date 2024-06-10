@@ -1,0 +1,1212 @@
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;                       /* Remove default margin from all elements */
+    padding: 0;                      /* Remove default padding from all elements */
+    box-sizing: border-box;          /* Include padding and border in the element's total width and height */
+    font-family: 'Spartan', sans-serif; /* Set the font family to Spartan */
+}
+
+h1 {
+    font-size: 50px;                 /* Set font size to 50 pixels */
+    line-height: 64px;               /* Set line height to 64 pixels */
+    color: #222;                     /* Set text color to dark gray */
+}
+
+h2 {
+    font-size: 46px;                 /* Set font size to 46 pixels */
+    line-height: 54px;               /* Set line height to 54 pixels */
+    color: #222;                     /* Set text color to dark gray */
+}
+
+h4 {
+    font-size: 20px;                 /* Set font size to 20 pixels */
+    color: #222;                     /* Set text color to dark gray */
+}
+
+h6 {
+    font-weight: 700;                /* Set font weight to bold (700) */
+    font-size: 12px;                 /* Set font size to 12 pixels */
+}
+
+p {
+    font-size: 16px;                 /* Set font size to 16 pixels */
+    color: #465b52;                  /* Set text color to a shade of gray */
+    margin: 15px 0 20px 0;           /* Add margin: 15px top, 20px bottom, 0 left/right */
+}
+
+.section-p1 {
+    padding: 40px 80px;              /* Add padding: 40px top/bottom, 80px left/right */
+}
+
+.section-m1 {
+    margin: 40px 0;                  /* Add 40px margin to the top and bottom */
+}
+
+button.normal {
+    font-size: 15px;                 /* Set font size to 15 pixels */
+    font-weight: 600;                /* Set font weight to semi-bold (600) */
+    padding: 15px 30px;              /* Add padding: 15px top/bottom, 30px left/right */
+    color: black;                    /* Set text color to black */
+    background-color: #fff;          /* Set background color to white */
+    border-radius: 5px;              /* Round the corners with a 5px radius */
+    cursor: pointer;                 /* Change cursor to pointer on hover */
+    border: none;                    /* Remove border */
+    outline: none;                   /* Remove outline */
+    transform: 0.2s;                 /* Add a smooth transition effect */
+}
+
+button.white {
+    font-size: 13px;                /* Set font size to 13 pixels */
+    font-weight: 600;               /* Set font weight to semi-bold (600) */
+    padding: 11px 18px;             /* Add padding: 11px top/bottom, 18px left/right */
+    color: #fff;                    /* Set text color to white */
+    background-color: transparent;  /* Make the background color transparent */
+    cursor: pointer;                /* Change cursor to pointer on hover */
+    border: 1px solid #fff;         /* Add a 1px solid white border */
+    outline: none;                  /* Remove the outline */
+    transition: 0.2s;               /* Add a smooth transition effect */
+}
+
+body {
+    width: 100%;                     /* Set the width of the body to 100% of the viewport */
+}
+
+/* Header Start */
+#header {
+    display: flex;               /* Arrange items side by side */
+    align-items: center;         /* Vertically center the items */
+    justify-content: space-between; /* Spread items out with space between them */
+    padding: 20px 80px;          /* Add padding inside the header: 20px top/bottom, 80px left/right */
+    background-image:  url("img/light2.png"); /* Set the background image */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06); /* Add a shadow below the header */
+    z-index: 999;                /* Ensure the header is on top of other elements */
+    position: sticky;            /* Make the header stick to the top of the page */
+    top: 0;                      /* Stick to the top of the page */
+    left: 0;                     /* Align to the left of the page */
+}
+
+.center-text {
+    flex: 1;                  /* Allow the text to grow and take up available space */
+    text-align: center;       /* Center the text horizontally */
+    font-size: 50px;          /* Set font size for the text */
+    font-weight: bold;        /* Make the text bold */
+    color: #0a0a0a;           /* Set the text color */
+    transform: translateX(215px); /* Move the text 10px to the right (use negative value to move left) */
+}
+
+#navbar {
+    display: flex;              /* Arrange items side by side */
+    align-items: center;        /* Vertically center the items */
+    justify-content: center;    /* Center the items horizontally */
+}
+#navbar li {
+    list-style: none;        /* Remove bullet points from list items */
+    padding: 0 20px;         /* Add 20px padding on the left and right, no padding on top and bottom */
+    position: relative;      /* Set the position to relative to enable positioning of child elements */
+}
+#navbar li a {
+    text-decoration: none;    /* Remove underline from links */
+    font-size: 20px;          /* Set font size to 16 pixels */
+    font-weight: 900;         /* Set font weight to 600 (semi-bold) */
+    color: #1a1a1a;           /* Set text color to a dark gray */
+    transition: 0.5s ease;    /* Add a smooth transition effect for the hover state */
+}
+#navbar li a:hover,
+#navbar li a.active {
+    color: #f80808;           /* Change text color to teal when hovered or active */
+}
+#navbar li a.active::after,
+#navbar li a:hover::after {
+    content: "";               /* Insert an empty content element */
+    width: 40%;                /* Set the width to 30% of the parent element */
+    height: 2px;               /* Set the height to 2 pixels */
+    background: #f00808;       /* Set the background color to teal */
+    position: absolute;        /* Position the element absolutely */
+    bottom: -4px;              /* Position it 4 pixels below the bottom of the parent */
+    left: 20px;                /* Position it 20 pixels from the left of the parent */
+}
+
+#mobile {
+    display: none;                 /* Hide the element */
+    align-items: center;           /* Vertically center the items */
+}
+
+#close {
+    display: none;                 /* Hide the element */
+}
+
+.logo {
+    width: 100px;           /* Set the width of the logo to 100 pixels */
+    height: 100px;          /* Set the height of the logo to 100 pixels */
+}
+/* Home Page */
+#hero {
+    background-image: url("img/backgroundfish.png"); /* Set the background image 
+    /*background-color: aqua;               /* Set the background color */
+    height: 90vh;                           /* Set the height to 90% of the viewport height */
+    width: 100%;                            /* Set the width to 100% of the container */
+    background-size: cover;                 /* Scale the background image to cover the entire container */
+    background-position: top 25% right 0;   /* Position the background image */
+    padding: 0 80px;                        /* Add padding of 80px on left and right, no padding on top and bottom */
+    display: flex;                          /* Arrange items using flexbox */
+    flex-direction: column;                 /* Arrange flex items in a column */
+    align-items: flex-start;                /* Align items to the start of the container */
+    justify-content: center;                /* Center the items vertically */
+}
+
+#hero h4 {
+    padding-bottom: 15px;       /* Add 15px padding to the bottom of <h4> elements inside #hero */
+    color: black; /* Change to white for better visibility */
+    font-weight: 900; /* Make the text bold */
+    font-size: 35px;             /* Set the font size to 35 pixels */
+}
+#hero h2 {
+    color: yellow; /* Change to yellow for better visibility */
+    font-weight: 900; /* Make the text bold */
+    font-size: 35px;             /* Set the font size to 35 pixels */
+}
+#hero h1 {
+    color: yellow; /* Change to white for better visibility */
+    font-weight: 900; /* Make the text bold */
+    font-size: 35px;             /* Set the font size to 35 pixels */
+    
+}
+
+#hero p {
+    color: white; /* Change to white for better visibility */
+    font-weight: 900; /* Make the text bold */
+    font-size: 20px;             /* Set the font size to 20 pixels */
+}
+#hero button {
+    background-color: transparent;           /* Make the background color of the button transparent */
+    color: white;                          /* Set the text color of the button to teal */
+    border: 0;                               /* Remove the border of the button */
+    padding: 14px 80px 14px -100px; /* Padding: 14px top, 80px right, 14px bottom, -100px left */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    cursor: pointer;             /* Change the cursor to a pointer when hovered */
+    font-weight: 900;            /* Set the font weight to bold (700) */
+    font-size: 20px;             /* Set the font size to 20 pixels */
+}
+
+#feature {
+    display: flex;                   /* Arrange items side by side */
+    align-items: center;             /* Vertically center the items */
+    justify-content: space-between;  /* Spread items out with space between them */
+    flex-wrap: wrap;                 /* Allow the items to wrap onto multiple lines if necessary */
+}
+
+
+#feature .fe-box {
+    width: 180px;                      /* Set the width of the box to 180 pixels */
+    text-align: center;                /* Center the text inside the box */
+    padding: 25px 15px;                /* Add padding: 25px top/bottom, 15px left/right */
+    box-shadow: 20px 20px 34px rgba(0, 0, 0, 0.03); /* Add a shadow around the box */
+    border: 1px solid #cce7d0;         /* Add a 1px solid border with a light green color */
+    border-radius: 4px;                /* Round the corners with a 4px radius */
+    margin: 15px 0;                    /* Add a 15px margin to the top and bottom */
+}
+
+#feature .fe-box:hover {
+    box-shadow: 10px 10px 54px rgba(70, 62, 221, 0.1); /* Change the shadow on hover */
+}
+
+#feature .fe-box img {
+    width: 100%;                     /* Set the width of the image to 100% of its container */
+    margin-bottom: 10px;             /* Add a 10px margin to the bottom of the image */
+}
+
+#feature .fe-box h6 {
+    display: inline-block;             /* Display the element as an inline-block */
+    padding: 9px 8px 6px 8px;          /* Add padding: 9px top, 8px right, 6px bottom, 8px left */
+    line-height: 1;                    /* Set the line height to 1 */
+    border-radius: 4px;                /* Round the corners with a 4px radius */
+    color: #088178;                    /* Set the text color to teal */
+    background-color: #fddde4;          /* Set the background color */
+}
+
+#feature .fe-box:nth-child(2) h6 {
+    background-color: #cdebbc;       /* Set the background color for the second child */
+}
+
+#feature .fe-box:nth-child(3) h6 {
+    background-color: #d1e8f2;       /* Set the background color for the third child */
+}
+
+#feature .fe-box:nth-child(4) h6 {
+    background-color: #cdd4f8;       /* Set the background color for the fourth child */
+}
+
+#feature .fe-box:nth-child(5) h6 {
+    background-color: #f6dbf6;       /* Set the background color for the fifth child */
+}
+
+#feature .fe-box:nth-child(6) h6 {
+    background-color: #fff2e5;       /* Set the background color for the sixth child */
+}
+
+#product1 {
+    text-align: center;             /* Center-align the text inside the #product1 element */
+}
+
+#product1 .pro-container {
+    display: flex;                   /* Arrange items side by side */
+    justify-content: space-between;  /* Spread items out with space between them */
+    padding-top: 20px;               /* Add 20px padding to the top */
+    flex-wrap: wrap;                 /* Allow items to wrap onto multiple lines if necessary */
+}
+
+#product1 .pro {
+    width: 23%;                     /* Set the width to 23% of the parent container */
+    min-width: 250px;               /* Set the minimum width to 250 pixels */
+    padding: 10px 12px;             /* Add padding: 10px top/bottom, 12px left/right */
+    border: 1px solid #cce7d0;      /* Add a 1px solid border with a light green color */
+    border-radius: 25px;            /* Round the corners of the image with a 20px radius */
+    cursor: pointer;                /* Change the cursor to a pointer on hover */
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02); /* Add a light shadow around the box */
+    margin: 15px 0;                 /* Add a 15px margin to the top and bottom */
+    transition: 0.2s ease;          /* Add a smooth transition effect */
+    position: relative;             /* Set the position to relative for positioning child elements */
+}
+
+#product1 .pro:hover {
+    box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.05); /* Change the shadow on hover */
+}
+
+#product1 .pro img {
+    width: 100%;                    /* Set the width of the image to 100% of its container */
+    border-radius: 20px;            /* Round the corners of the image with a 20px radius */
+}
+
+#product1 .pro .des {
+    text-align: start;             /* Align text to the start (left) */
+    padding: 10px 0;               /* Add padding: 10px top/bottom, 0 left/right */
+}
+
+#product1 .pro .des span {
+    color: #606063;                /* Set the text color */
+    font-size: 12px;               /* Set the font size to 12 pixels */
+}
+
+#product1 .pro .des h5 {
+    padding-top: 7px;              /* Add 7px padding to the top */
+    color: #1a1a1a;                /* Set the text color to dark gray */
+    font-size: 14px;               /* Set the font size to 14 pixels */
+}
+#product1 .pro .des i {
+    font-size: 12px;               /* Set the font size to 12 pixels */
+    color: rgb(243, 181, 25);      /* Set the text color to a specific shade of yellow */
+}
+
+#product1 .pro .des h4 {
+    padding-top: 7px;              /* Add 7px padding to the top */
+    font-size: 15px;               /* Set the font size to 15 pixels */
+    font-weight: 700;              /* Set the font weight to bold (700) */
+    color: #088178;                /* Set the text color to teal */
+}
+
+#product1 .pro .cart {
+    width: 40px;                    /* Set the width to 40 pixels */
+    height: 40px;                   /* Set the height to 40 pixels */
+    line-height: 40px;              /* Set the line height to 40 pixels */
+    border-radius: 50px;            /* Round the corners with a 50px radius */
+    background-color: #e8f6ea;      /* Set the background color to a light green */
+    font-weight: 500;               /* Set the font weight to 500 (medium bold) */
+    color: #088178;                 /* Set the text color to teal */
+    border: 1px solid #cce7d0;      /* Add a 1px solid border with a light green color */
+    position: absolute;             /* Position the element absolutely */
+    bottom: 20px;                   /* Position 20px from the bottom of the container */
+    right: 10px;                    /* Position 10px from the right of the container */
+}
+
+#banner {
+    display: flex;                   /* Arrange items side by side */
+    flex-direction: column;          /* Arrange items in a column */
+    justify-content: center;         /* Center items horizontally */
+    align-items: center;             /* Center items vertically */
+    text-align: center;              /* Center-align text inside the banner */
+    background-image: url("img/sceneshot.png"); /* Set the background image */
+    width: 100%;                     /* Set the width to 100% of the container */
+    height: 40vh;                    /* Set the height to 40% of the viewport height */
+    background-size: cover;          /* Scale the background image to cover the entire container */
+    background-position: center;     /* Center the background image */
+}
+
+#banner h2 {
+    color: #161515;                     /* Set the text color to white */
+    font-size: 30px;                 /* Set the font size to 30 pixels */
+    padding: 10px 0;                 /* Add 10px padding to the top and bottom, 0 left and right */
+}
+
+#banner h2 span {
+    color: #ef3636;                  /* Set the text color to red */
+}
+
+#banner button:hover {
+    background: #088178;           /* Change the background color to teal on hover */
+    color: #fff;                   /* Change the text color to white on hover */
+}
+
+#sm-banner {
+    display: flex;                   /* Arrange items side by side */
+    justify-content: space-between;  /* Spread items out with space between them */
+    flex-wrap: wrap;                 /* Allow items to wrap onto multiple lines if necessary */
+}
+
+
+#sm-banner .banner-box{
+    display: flex;                   /* Arrange items side by side */
+    flex-direction: column;          /* Arrange items in a column */
+    justify-content: center;         /* Center items horizontally */
+    align-items: flex-start;            /* Align items to the start of the container */
+    background-image: url("img/banner1.png"); /* Set the background image */
+    min-width: 850px;                     /* Set the width to minimum 850 pixels of the container */
+    height: 50vh;                    /* Set the height to 50% of the viewport height */
+    background-size: cover;          /* Scale the background image to cover the entire container */
+    background-position: center;     /* Center the background image */
+    padding: 30px;                   /* Add 30px padding around the container */
+}
+
+#sm-banner .banner-box2{
+               
+    background-image: url("img/banner2.png"); /* Set the background image */
+                    
+}
+
+#sm-banner h4 {
+    color: #fff;                   /* Set text color to white */
+    font-size: 20px;               /* Set font size to 20 pixels */
+    font-weight: 300;              /* Set font weight to light (300) */
+}
+
+#sm-banner h2 {
+    color: #fff;                   /* Set text color to white */
+    font-size: 28px;               /* Set font size to 28 pixels */
+    font-weight: 800;              /* Set font weight to extra bold (800) */
+}
+
+#sm-banner span {
+    color: #fff;                   /* Set text color to white */
+    font-size: 14px;               /* Set font size to 14 pixels */
+    font-weight: 500;              /* Set font weight to medium (500) */
+    padding-bottom: 15px;          /* Add 15px padding to the bottom */
+}
+
+#sm-banner .banner-box:hover button {
+    background: #088178;           /* Change the background color to teal on hover */
+    border: 1px solid #088178;     /* Change the border color to teal on hover */
+}
+
+#banner3 {
+    display: flex;                   /* Arrange items side by side */
+    justify-content: space-between;  /* Spread items out with space between them */
+    flex-wrap: wrap;                 /* Allow items to wrap onto multiple lines if necessary */
+    padding: 0 80px;                 /* Add padding: 0 top/bottom, 80px left/right */
+}
+
+#banner3 .banner-box {
+    display: flex;                   /* Arrange items side by side */
+    flex-direction: column;          /* Arrange items in a column */
+    justify-content: center;         /* Center items horizontally */
+    align-items: flex-start;         /* Align items to the start of the container */
+    background-image: url("img/banner3.png"); /* Set the background image */
+    min-width: 30%;                  /* Set the minimum width to 30% of the container */
+    height: 30vh;                    /* Set the height to 30% of the viewport height */
+    background-size: cover;          /* Scale the background image to cover the entire container */
+    background-position: center;     /* Center the background image */
+    padding: 20px;                   /* Add 20px padding around the container */
+    margin-bottom: 20px;             /* Add 20px margin to the bottom */
+}
+
+#banner3 .banner-box2 {
+    background-image: url("img/banner4.png"); /* Set the background image */
+}
+
+#banner3 .banner-box3 {
+    background-image: url("img/banner5.png"); /* Set the background image */
+}
+
+
+#banner3 h2 {
+    color: #fff;                     /* Set text color to white */
+    font-weight: 900;                /* Set font weight to extra bold (900) */
+    font-size: 22px;                 /* Set font size to 22 pixels */
+}
+
+#banner3 h3 {
+    color: #ec544e;                  /* Set text color to red */
+    font-weight: 800;                /* Set font weight to bold (800) */
+    font-size: 15px;                 /* Set font size to 15 pixels */
+}
+
+#newsletter {
+    display: flex;                   /* Arrange items side by side */
+    justify-content: space-between;  /* Spread items out with space between them */
+    flex-wrap: wrap;                 /* Allow items to wrap onto multiple lines if necessary */
+    align-items: center;             /* Center items vertically */
+    background-image: url("img/sub.png"); /* Set the background image */
+    background-repeat: no-repeat;    /* Prevent the background image from repeating */
+    background-position: 20% 30%;    /* Position the background image */
+    background-color: #041e42;       /* Set the background color */
+}
+
+#newsletter h4{
+    font-size: 30px;                 /* Set font size to 30 pixels */
+    font-weight: 900;                /* Set font weight to extra bold (900) */
+}
+
+#newsletter p {
+    font-size: 20px;                /* Set the font size to 14 pixels */
+    font-weight: 900;               /* Set the font weight to semi-bold (600) */
+    color: #19191a;                 /* Set the text color to a shade of gray */
+}
+
+#newsletter p span {
+    color: #e71689;                 /* Set the text color to yellow */
+}
+
+#newsletter .form {
+    display: flex;                  /* Arrange items side by side */
+    width: 40%;                     /* Set the width to 40% of the container */
+}
+
+#newsletter input {
+    height: 3.125rem;               /* Set the height to 3.125 rem */
+    padding: 0 1.25em;              /* Add padding: 0 top/bottom, 1.25 em left/right */
+    font-size: 14px;                /* Set the font size to 14 pixels */
+    width: 100%;                    /* Set the width to 100% of the container */
+    border: 1px solid transparent;  /* Add a 1px solid transparent border */
+    border-radius: 4px;             /* Round the corners with a 4px radius */
+    outline: none;                  /* Remove the outline */
+    border-top-right-radius: 0;     /* Remove the top-right border radius */
+    border-bottom-right-radius: 0;  /* Remove the bottom-right border radius */
+}
+
+#newsletter button {
+    background-color: #088178;      /* Set the background color to teal */
+    color: #fff;                    /* Set the text color to white */
+    white-space: nowrap;            /* Prevent the text from wrapping */
+    border-top-left-radius: 0;     /* Remove the top-left border radius */
+    border-bottom-left-radius: 0;  /* Remove the bottom-left border radius */
+}
+
+footer .install .row img{
+    width: 50px;                      /* Adjust the width to fit whole container */
+    height: 50px;                  /* Adjust the height to fit whole container */
+}
+
+footer .install img{
+    width: 100px;                      /* Adjust the width to fit whole container */
+    height: 100px;                    /* Adjust the height to fit whole container */
+}
+
+footer {
+    display: flex;                   /* Arrange items side by side */
+    flex-wrap: wrap;                 /* Allow items to wrap onto multiple lines if necessary */
+    justify-content: space-between;  /* Spread items out with space between them */
+}
+
+footer .col {
+    display: flex;                   /* Arrange items side by side */
+    flex-direction: column;          /* Arrange items in a column */
+    align-items: flex-start;         /* Align items to the start of the column */
+    margin-bottom: 20px;             /* Add a 20px margin to the bottom */
+}
+
+footer .logo {
+    margin-bottom: 30px;             /* Add a 30px margin to the bottom */
+}
+
+footer h4 {
+    font-size: 14px;                 /* Set the font size to 14 pixels */
+    padding-bottom: 20px;            /* Add 20px padding to the bottom */
+}
+
+footer p {
+    font-size: 13px;                 /* Set the font size to 13 pixels */
+    margin: 0 0 8px 0;               /* Add 8px margin to the bottom */
+}
+
+footer a{
+    font-size: 13px;
+    text-decoration: none;
+    color: #222;
+    margin-bottom: 10px;
+}
+
+footer .follow {
+    margin-top: 20px;                /* Add 20px margin to the top */
+}
+
+footer .follow i {
+    color: #465b52;                  /* Set the color to a dark greenish gray */
+    padding-right: 4px;              /* Add 4px padding to the right */
+    cursor: pointer;                 /* Change the cursor to a pointer when hovered */
+}
+
+/*
+footer .install .row img {   
+    border: 1px solid #088178;       /* Add a 1px solid border with a teal color */
+    /*
+    border-radius: 6px;              /* Add 6px rounded corners */
+    /*
+}
+*/
+
+footer .install img {
+    margin: 10px 0 15px 0;           /* Add 10px margin to the top and 15px to the bottom */
+}
+
+footer .follow i:hover, 
+footer a:hover {
+    color: #088178;                  /* Change the color to teal on hover */
+}
+
+footer .copyright {
+    width: 100%;                     /* Set the width to 100% */
+    text-align: center;              /* Center-align the text */
+}
+
+/* Shop Page */
+
+#page-header {
+    background-image: url("img/shoppic1.png"); /* Sets the background image of the element */
+    width: 100%; /* Sets the width of the element to 100% of its container */
+    height: 40vh; /* Sets the height of the element to 40% of the viewport height */
+    background-size: cover; /* Ensures the background image covers the entire element */
+    display: flex; /* Uses flexbox layout for the element */
+    justify-content: center; /* Centers child elements along the main axis */
+    text-align: center; /* Centers the text horizontally within the element */
+    flex-direction: column; /* Arranges child elements in a column */
+    padding: 14px; /* Sets the padding to 14 pixels on all sides */
+}
+#page-header h2,
+#page-header p {
+    color: #161515; /* Sets the text color to white for h2 and p elements within the page-header */
+    font-weight: 900; /* Sets the font weight to bold (700) */
+}
+
+#pagination {
+    text-align: center; /* Centers the text within the pagination section */
+}
+#pagination a {
+    text-decoration: none; /* Removes the underline from the links */
+    background-color: #088178; /* Sets the background color of the links */
+    padding: 15px 20px; /* Sets the padding to 15 pixels on the top and bottom, and 20 pixels on the left and right */
+    border-radius: 4px; /* Rounds the corners of the links with a 4-pixel radius */
+    color: #fff; /* Sets the text color to white */
+    font-weight: 600; /* Sets the font weight to 600 (semi-bold) */
+}
+#pagination a i {
+    font-size: 16px; /* Sets the font size of the icon to 16 pixels */
+    font-weight: 600; /* Sets the font weight of the icon to 600 (semi-bold) */
+}
+
+/* Single Product */
+
+#prodetails {
+    display: flex; /* Uses flexbox layout for the element */
+    margin-top: 20px; /* Sets the top margin to 20 pixels */;
+}
+
+.single-pro-image #MainImg {
+    width: 100%; /* Adjust the width to make the image full */
+}
+
+#prodetails .single-pro-image {
+    width: 40%; /* Sets the width of the element to 40% of its container */
+    margin-right: 50px; /* Sets the right margin to 50 pixels */
+}
+
+.small-img-group {
+    display: flex; /* Uses flexbox layout for the element */
+    justify-content: space-between; /* Distributes child elements with space between them along the main axis */
+}
+
+.small-img-col {
+    flex-basis: 24%; /* Sets the initial main size of the flex item to 20% of its container */
+    cursor: pointer; /* Changes the cursor to a pointer when hovered over the element */
+}
+
+#prodetails .single-pro-details {
+    width: 50%; /* Sets the width of the element to 50% of its container */
+    padding-top: 30px; /* Sets the top padding to 30 pixels */
+}
+
+#prodetails .single-pro-details h4 {
+    padding: 40px 0 20px 0; /* Sets the top padding to 40 pixels, bottom padding to 20 pixels, and no padding on the left and right */
+}
+
+#prodetails .single-pro-details h2 {
+    font-size: 26px; /* Sets the font size of the element to 26 pixels */
+}
+
+#prodetails .single-pro-details select {
+    display: block; /* Sets the element to display as a block */
+    padding: 5px 10px; /* Sets the padding to 5 pixels on the top and bottom, and 10 pixels on the left and right */
+    margin-bottom: 10px; /* Sets the bottom margin to 10 pixels */
+}
+
+#prodetails .single-pro-details input {
+    width: 50px; /* Sets the width of the element to 50 pixels */
+    height: 47px; /* Sets the height of the element to 47 pixels */
+    padding-left: 10px; /* Sets the left padding to 10 pixels */
+    font-size: 16px; /* Sets the font size of the element to 16 pixels */
+    margin-right: 10px; /* Sets the right margin to 10 pixels */
+}
+
+#prodetails .single-pro-details input:focus {
+    outline: none; /* Removes the outline when the input element is focused */
+}
+
+#prodetails .single-pro-details button {
+    background: #088178; /* Sets the background color of the button */
+    color: #fff; /* Sets the text color of the button to white */
+}
+
+#prodetails .single-pro-details span {
+    line-height: 30px; /* Sets the line height of the span element to 25 pixels */
+}
+
+
+/* About Page */
+#page-header.about-header {
+    background-image: url("img/aboutuspich.png"); /* Sets the background image of the element */
+}
+
+#about-head {
+    display: flex; /* Uses flexbox layout for the element */
+    align-items: center; /* Aligns child elements to the center along the cross axis */
+}
+
+#about-head img {
+    width: 50%; /* Sets the width of the image to 50% of its container */
+    height: auto; /* Sets the height to auto to maintain the aspect ratio */
+}
+
+#about-head div {
+    padding-left: 40px; /* Sets the left padding to 40 pixels */
+}
+
+#about-app {
+    text-align: center; /* Centers the text within the about-app section */
+}
+
+#about-app .video {
+    width: 70%; /* Sets the width of the video container to 70% of its container */
+    height: 100%; /* Sets the height of the video container to 100% of its container */
+    margin: 30px auto 0 auto; /* Sets the top margin to 30 pixels and centers the container horizontally */
+}
+
+#about-app .video video {
+    width: 100%; /* Sets the width of the video element to 100% of its container */
+    height: 100%; /* Sets the height of the video element to 100% of its container */
+    border-radius: 20px; /* Rounds the corners of the video element with a 20-pixel radius */
+}
+
+
+/* Content Page */
+#page-header.contact-header {
+    background-image: url("img/city1.png"); /* Sets the background image of the element */
+}
+#contact-details {
+    display: flex; /* Uses flexbox layout for the element */
+    align-items: center; /* Aligns child elements to the center along the cross axis */
+    justify-content: space-between; /* Distributes child elements with space between them along the main axis */
+}
+#contact-details .details {
+    width: 40%; /* Sets the width of the element to 40% of its container */
+}
+#contact-details .details span,
+#form-details form span{
+    font-size: 12px; /* Sets the font size of the span element to 12 pixels */
+}
+#contact-details .details h2,
+#form-details form h2{
+    font-size: 26px; /* Sets the font size of the h2 element to 26 pixels */
+    line-height: 35px; /* Sets the line height of the h2 element to 35 pixels */
+    padding: 20px 0; /* Sets the top and bottom padding to 20 pixels and no padding on the left and right */
+}
+#contact-details .details h3 {
+    font-size: 16px; /* Sets the font size of the h3 element to 16 pixels */
+    padding-bottom: 15px; /* Sets the bottom padding to 15 pixels */
+}
+#contact-details .details li {
+    list-style: none; /* Removes the default list styling */
+    display: flex; /* Uses flexbox layout for the list item */
+    padding: 10px 0; /* Sets the top and bottom padding to 10 pixels and no padding on the left and right */
+}
+#contact-details .details li i {
+    font-size: 14px; /* Sets the font size of the icon to 14 pixels */
+    padding-right: 22px; /* Sets the right padding to 22 pixels */
+}
+#contact-details .details li p {
+    margin: 0; /* Removes the default margin */
+    font-size: 14px; /* Sets the font size of the paragraph to 14 pixels */
+}
+#contact-details .map {
+    width: 55%; /* Sets the width of the map container to 55% of its container */
+    height: 400px; /* Sets the height of the map container to 400 pixels */
+}
+#contact-details .map iframe {
+    width: 100%; /* Sets the width of the iframe to 100% of its container */
+    height: 100%; /* Sets the height of the iframe to 100% of its container */
+}
+
+#form-details {
+    display: flex; /* Uses flexbox layout for the element */
+    justify-content: space-between; /* Distributes child elements with space between them along the main axis */
+    margin: 30px; /* Sets the margin to 30 pixels on all sides */
+    padding: 80px; /* Sets the padding to 80 pixels on all sides */
+    border: 1px solid #e1e1e1; /* Sets the border to a 1 pixel solid line with color #e1e1e1 */
+}
+
+#form-details form {
+    width: 65%; /* Sets the width of the form to 65% of its container */
+    display: flex; /* Uses flexbox layout for the form */
+    flex-direction: column; /* Arranges child elements in a column */
+    align-items: flex-start; /* Aligns child elements to the start of the cross axis */
+}
+#form-details form input,
+#form-details form textarea {
+    width: 100%; /* Sets the width of the input and textarea to 100% of their container */
+    padding: 12px 15px; /* Sets the padding to 12 pixels on the top and bottom, and 15 pixels on the left and right */
+    outline: none; /* Removes the outline */
+    margin-bottom: 20px; /* Sets the bottom margin to 20 pixels */
+    border: 1px solid #e1e1e1; /* Sets the border to a 1 pixel solid line with color #e1e1e1 */
+}
+#form-details form button {
+    background-color: #088178; /* Sets the background color of the button */
+    color: #fff; /* Sets the text color of the button to white */
+}
+
+#form-details .people div {
+    padding-bottom: 25px; /* Sets the bottom padding to 25 pixels */
+    display: flex; /* Uses flexbox layout for the element */
+    align-items: flex-start; /* Aligns child elements to the start along the cross axis */
+}
+#form-details .people div img {
+    width: 65px; /* Sets the width of the image to 65 pixels */
+    height: 65px; /* Sets the height of the image to 65 pixels */
+    object-fit: cover; /* Ensures the image covers the entire area without distorting */
+    margin-right: 15px; /* Sets the right margin to 15 pixels */
+}
+#form-details .people div p {
+    margin: 0; /* Removes the default margin */
+    font-size: 13px; /* Sets the font size to 13 pixels */
+    line-height: 25px; /* Sets the line height to 25 pixels */
+}
+#form-details .people div p span {
+    display: block; /* Displays the span as a block element */
+    font-size: 16px; /* Sets the font size to 16 pixels */
+    font-weight: 600; /* Sets the font weight to 600 (semi-bold) */
+    color: #000; /* Sets the text color to black */
+}
+
+/*Cart*/
+#cart {
+    overflow-x: auto; /* Enables horizontal scrolling if the content overflows */
+}
+#page-header.cart-header {
+    background-image: url("img/mall1.png"); /* Sets the background image of the element */
+}
+#cart table {
+    width: 100%; /* Sets the width of the table to 100% of its container */
+    border-collapse: collapse; /* Collapses the table borders into a single border */
+    table-layout: fixed; /* Fixes the table layout */
+    white-space: nowrap; /* Prevents text from wrapping */
+}
+#cart table img {
+    width: 70px; /* Sets the width of the images within the table to 70 pixels */
+}
+
+#cart table td:nth-child(1) {
+    width: 100px; /* Sets the width of the first column to 100 pixels */
+    text-align: center; /* Centers the text within the first column */
+}
+#cart table td:nth-child(2) {
+    width: 150px; /* Sets the width of the second column to 150 pixels */
+    text-align: center; /* Centers the text within the second column */
+}
+
+#cart table td:nth-child(3) {
+    width: 250px; /* Sets the width of the third column to 250 pixels */
+    text-align: center; /* Centers the text within the third column */
+}
+#cart table td:nth-child(4),
+#cart table td:nth-child(5),
+#cart table td:nth-child(6)  {
+    width: 150px; /* Sets the width of the first column to 150 pixels */
+    text-align: center; /* Centers the text within the first column */
+}
+#cart table td:nth-child(5) input {
+    width: 70px; /* Sets the width of the input to 70 pixels */
+    padding: 10px 5px 10px 15px; /* Sets the padding to 10 pixels on the top and bottom, 5 pixels on the right, and 15 pixels on the left */
+}
+#cart table thead {
+    border: 1px solid #e2e9e1; /* Sets a solid border with color #e2e9e1 */
+    border-left: none; /* Removes the left border */
+    border-right: none; /* Removes the right border */
+}
+#cart table thead td {
+    font-weight: 700; /* Sets the font weight to 700 (bold) */
+    text-transform: uppercase; /* Transforms the text to uppercase */
+    font-size: 13px; /* Sets the font size to 13 pixels */
+    padding: 18px 0; /* Sets the top and bottom padding to 18 pixels, and no padding on the left and right */
+}
+#cart table tbody tr td {
+    padding-top: 15px; /* Sets the top padding to 15 pixels */
+}
+#cart table tbody td {
+    font-size: 13px; /* Sets the font size to 13 pixels */
+}
+
+#cart-add {
+    display: flex; /* Uses flexbox layout for the element */
+    flex-wrap: wrap; /* Allows flex items to wrap onto multiple lines */
+    justify-content: space-between; /* Distributes child elements with space between them along the main axis */
+}
+#coupon {
+    width: 50%; /* Sets the width of the coupon section to 50% of its container */
+    margin-bottom: 30px; /* Sets the bottom margin to 30 pixels */
+}
+#coupon h3,
+#subtotal h3 {
+    padding-bottom: 15px; /* Sets the bottom padding to 15 pixels */
+}
+#coupon input {
+    padding: 10px 20px; /* Sets the padding to 10 pixels on the top and bottom, and 20 pixels on the left and right */
+    outline: none; /* Removes the outline */
+    width: 60%; /* Sets the width to 60% of its container */
+    margin-right: 10px; /* Sets the right margin to 10 pixels */
+    border: 1px solid #e2e9e1; /* Sets the border to a 1 pixel solid line with color #e2e9e1 */
+}
+#coupon button,
+#subtotal button{
+    background-color: #088178; /* Sets the background color of the button */
+    color: #fff; /* Sets the text color of the button to white */
+    padding: 12px 20px; /* Sets the padding to 12 pixels on the top and bottom, and 20 pixels on the left and right */
+}
+#subtotal {
+    width: 50%; /* Sets the width of the subtotal section to 50% of its container */
+    margin-bottom: 30px; /* Sets the bottom margin to 30 pixels */
+    border: 1px solid #e2e9e1; /* Sets the border to a 1 pixel solid line with color #e2e9e1 */
+    padding: 30px; /* Sets the padding to 30 pixels on all sides */
+}
+#subtotal table {
+    border-collapse: collapse; /* Collapses the table borders into a single border */
+    width: 100%; /* Sets the width of the table to 100% of its container */
+    margin-bottom: 20px; /* Sets the bottom margin to 20 pixels */
+}
+#subtotal table td {
+    width: 50%; /* Sets the width of the table cells to 50% of the table */
+    border: 1px solid #e2e9e1; /* Sets the border of the table cells to a 1 pixel solid line with color #e2e9e1 */
+    padding: 10px; /* Sets the padding to 10 pixels on all sides */
+    font-size: 13px; /* Sets the font size to 13 pixels */
+}
+
+/* login/register*/
+
+.account-page{
+    padding: 50px 0; /* Sets the padding to 50 pixels on the top and bottom, and 0 on the left and right */
+    padding-bottom: 450px; /* Adds extra padding to the bottom */
+    background-image: url("img/city222.png"); /* Sets the background image of the element */;
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    background-size: cover; /* Scales the image to cover the entire container */
+    background-position: center; /* Centers the image within the container */
+}
+.form-container {
+    background: #fff; /* Sets the background color to white */
+    width: 300px; /* Sets the width to 300 pixels */
+    height: 400px; /* Sets the height to 400 pixels */
+    position: relative; /* Sets the position to relative */
+    text-align: center; /* Centers the text inside the container */
+    padding: 20px 0; /* Sets the top and bottom padding to 20 pixels, and no padding on the left and right */
+    margin: auto; /* Centers the container horizontally */
+    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1); /* Adds a shadow effect */
+    overflow: hidden; /* Hides the overflow */
+}
+.form-container span {
+    font-weight: bold; /* Sets the font weight to bold */
+    padding: 0 10px; /* Sets the left and right padding to 10 pixels, and no padding on the top and bottom */
+    color: #555; /* Sets the text color to #555 */
+    cursor: pointer; /* Changes the cursor to a pointer when hovered over */
+    width: 100px; /* Sets the width to 100 pixels */
+    display: inline-block; /* Displays the span as an inline block element */
+}
+.form-btn {
+    display: inline-block; /* Displays the element as an inline block */
+}
+
+.errorMsg{
+    color: red; /* Sets the text color to red */
+    /*border: 5px solid rgb(20, 20, 20); /* Border style, color, and width */
+    padding: 10px; /* Padding inside the border */
+    margin: 10px 0; /* Margin around the element */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.form-container form {
+    max-width: 300px; /* Sets the maximum width to 300 pixels */
+    padding: 0 20px; /* Sets the left and right padding to 20 pixels, and no padding on the top and bottom */
+    position: absolute; /* Positions the form absolutely */
+    top: 130px; /* Sets the top position to 130 pixels */
+    transition: transform 1s; /* Adds a smooth transition effect */
+}
+form input {
+    width: 100%; /* Sets the width to 100% of its container */
+    height: 30px; /* Sets the height to 30 pixels */
+    margin: 10px 0; /* Sets the top and bottom margin to 10 pixels, and no margin on the left and right */
+    padding: 0 10px; /* Sets the left and right padding to 10 pixels, and no padding on the top and bottom */
+    border: 1px solid #ccc; /* Sets the border to a 1 pixel solid line with color #ccc */
+}
+form .btn {
+    width: 100%; /* Sets the width to 100% of its container */
+    border: none; /* Removes the border */
+    cursor: pointer; /* Changes the cursor to a pointer when hovered over */
+    margin: 10px 0; /* Sets the top and bottom margin to 10 pixels, and no margin on the left and right */
+}
+form .btn:focus {
+    outline: none; /* Removes the outline when the button is focused */
+}
+#LoginForm {
+    left: -300px; /* Positions the login form 300 pixels to the left */
+}
+#RegForm {
+    left: 0; /* Positions the registration form at its original position */
+}
+form a {
+    font-size: 12px; /* Sets the font size of the anchor tag inside the form to 12 pixels */
+}
+#Indicator {
+    width: 100px; /* Sets the width of the indicator to 100 pixels */
+    border: none; /* Removes the border */
+    background: #ff523b; /* Sets the background color of the indicator */
+    height: 3px; /* Sets the height of the indicator to 3 pixels */
+    margin-top: 8px; /* Sets the top margin to 8 pixels */
+    transform: translateX(100px); /* Translates the indicator 100 pixels to the right */
+    transition: transform 1s; /* Adds a smooth transition effect */
+}
+
+/* For smaller screen*/
+@media (max-width: 799px) {
+    .section-p1 {
+        padding: 40px 40px; /* Sets the padding to 40 pixels on all sides of the element */
+    }    
+    #navbar {
+        display: flex;                /* Arrange items using flexbox */
+        flex-direction: column;       /* Stack items vertically */
+        align-items: flex-start;      /* Align items to the start of the flex container */
+        justify-content: flex-start;  /* Align items to the start of the main axis */
+        position: fixed;              /* Fix the position relative to the viewport */
+        top: 0;                       /* Align to the top of the viewport */
+        right: -300px;                   /* Hiding the menu*/
+        height: 100vh;                /* Set the height to 100% of the viewport height */
+        width: 300px;                 /* Set the width to 300px */
+        background-color: #E3E6F3;    /* Set the background color */
+        box-shadow: 0 40px 60px rgba(0, 0, 0, 0.1); /* Add a shadow effect */
+        padding: 80px 0 0 10px;         /* Add padding to the top, bottom, and sides */
+        transition: 0.5s ;        /* Add a smooth transition effect */
+    }
+    #navbar.active {
+        right: 0;                     /* Show the menu */
+    }
+    #navbar li {
+        margin-bottom: 25px; /* Add a bottom margin of 25px to each list item */
+    }
+    #mobile {
+        display: flex;                 /* Arrange items side by side */
+        align-items: center;           /* Vertically center the items */
+    }
+    #mobile i {
+        color: #1a1a1a; /* Sets the text color of the element to a dark gray */
+        font-size: 24px; /* Sets the font size of the element's text to 24 pixels */
+        padding-left: 20px; /* Sets the padding on the left side of the element to 20 pixels */
+    }
+    #close {
+        display: initial;              /* Show the element */
+        position: absolute; /* Positions the element absolutely within its closest positioned ancestor */
+        top: 30px;          /* Sets the top position of the element to 30 pixels from the top */
+        left: 30px;         /* Sets the left position of the element to 30 pixels from the left */
+        color: #222;        /* Sets the text color of the element to a dark gray */
+        font-size: 24px;    /* Sets the font size of the element's text to 24 pixels */
+    }
+    #lg-bag {
+        display: none;                 /* Hide the element */
+    }
+    #hero {
+        height: 70vh; /* Sets the height of the element to 70% of the viewport height */
+        padding: 0 80px; /* Sets the padding to 0 on the top and bottom, and 80 pixels on the left and right */
+        background-position: top 30% right 30%; /* Positions the background image 30% from the top and 30% from the right */
+    }
+    #feature {
+        justify-content: center; /* Aligns child elements to the center along the main axis */
+    }
+    #feature .fe-box {
+        margin: 15px 15px; /* Sets the margin to 15 pixels on all sides of the element */
+    }
+    #product1 .pro-container {
+        justify-content: center; /* Aligns child elements to the center along the main axis */
+    }
+    #product1 .pro {
+        margin: 15px; /* Sets the margin to 15 pixels on all sides of the element */
+    }
+    #banner {
+        height: 20vh; /* Sets the height of the element to 20% of the viewport height */
+    }
+    
+    #sm-banner .banner-box {
+        min-width: 100%; /* Sets the minimum width of the element to 100% of its container */
+        height: 30vh; /* Sets the height of the element to 30% of the viewport height */
+    }
+    #banner3 {
+        padding: 0 40px; /* Sets the padding to 0 on the top and bottom, and 40 pixels on the left and right */
+    }
+    #banner3 .banner-box {
+        width: 28%; /* Sets the width of the element to 28% of its container */
+    }
+    #newsletter .form {
+        width: 70%; /* Sets the width of the element to 70% of its container */
+    } 
+    .center-text {
+        transform: translateX(5px); /* Adjust the value as needed for smaller screens */
+        font-size: 30px; /* Sets the font size of the element to 10 pixels */
+    }
+
+    /*contact page*/
+    /* Contact Page */
+    #form-details {
+        padding: 40px; /* Sets the padding to 40 pixels on all sides */
+    }
+    #form-details form {
+        width: 50%; /* Sets the width of the form to 50% of its container */
+    }
+}
+
+@media (max-width: 1030px) {
+    .center-text {
+        transform: translateX(5px); /* Adjust the value as needed for smaller screens */
+        font-size: 30px; /* Sets the font size of the element to 10 pixels */
+    }
+}
+
+@media (max-width: 477px) {
+    .section-p1 {
+        padding: 20px; /* Sets the padding to 20 pixels on all sides of the element */
+    }
+    #header {
+        padding: 10px 30px; /* Sets the padding to 10 pixels on the top and bottom, and 30 pixels on the left and right for the header */
+    }
+    h1 {
+        font-size: 38px; /* Sets the font size of h1 elements to 38 pixels */
+    }
+    h2 {
+        font-size: 32px; /* Sets the font size of h2 elements to 32 pixels */
+    }
+    #hero {
+        padding: 0 20px; /* Sets the padding to 0 on the top and bottom, and 20 pixels on the left and right for the hero section */
+        background-position: 55%; /* Sets the background position to 55% for the hero section */
+    }
+    #feature {
+        justify-content: space-between; /* Distributes child elements with space between them along the main axis */
+    }
+    #feature .fe-box {
+        width: 155px; /* Sets the width of the element to 155 pixels */
+        margin: 0 0 15px 0; /* Sets the margin to 0 on the top, right, and left, and 15 pixels on the bottom */
+    }
+    #product1 .pro {
+        width: 100%; /* Sets the width of the element to 100% of its container */
+    }
+    #banner {
+        height: 40vh; /* Sets the height of the element to 40% of the viewport height */
+    }
+    #sm-banner .banner-box {
+        height: 40vh; /* Sets the height of the element to 40% of the viewport height */
+    }
+    #sm-banner .banner-box2 {
+        margin-top: 20px; /* Sets the top margin of the element to 20 pixels */
+    }
+    #banner3 {
+        padding: 0 20px; /* Sets the padding to 0 on the top and bottom, and 20 pixels on the left and right */
+    }
+    #banner3 .banner-box {
+        width: 100%; /* Sets the width of the element to 100% of its container */
+    }
+    #newsletter {
+        padding: 40px 20px; /* Sets the padding to 40 pixels on the top and bottom, and 20 pixels on the left and right */
+    }
+    #newsletter .form {
+        width: 100%; /* Sets the width of the element to 100% of its container */
+    }
+    footer .copyright {
+        text-align: start; /* Aligns the text to the start (left in LTR languages) */
+    }
+
+    .center-text {
+        transform: translateX(5px); /* Adjust the value as needed for smaller screens */
+        font-size: 20px; /* Sets the font size of the element to 20 pixels */
+    }
+
+    /*single product*/
+    #prodetails {
+        display: flex; /* Uses flexbox layout for the element */
+        flex-direction: column; /* Arranges child elements in a column */
+    }
+    #prodetails .single-pro-image {
+        width: 100%; /* Sets the width of the element to 100% of its container */
+        margin-right: 0px; /* Sets the right margin to 0 pixels */
+    }
+    #prodetails .single-pro-details {
+        width: 100%; /* Sets the width of the element to 100% of its container */
+    }
+
+    /*about page*/
+    #about-head {
+        flex-direction: column; /* Arranges child elements in a column */
+    }
+    #about-head img {
+        width: 100%; /* Sets the width of the image to 100% of its container */
+        margin-bottom: 20px; /* Sets the bottom margin to 20 pixels */
+    }
+    #about-head div {
+        padding-left: 0px; /* Sets the left padding to 0 pixels */
+    }
+    #about-app .video {
+        width: 100%; /* Sets the width of the video container to 100% of its container */
+    }
+
+    /* contact page */
+    #contact-details {
+        flex-direction: column; /* Arranges child elements in a column */
+    }
+    #contact-details .details {
+        width: 100%; /* Sets the width of the details element to 100% of its container */
+        margin-bottom: 30px; /* Sets the bottom margin to 30 pixels */
+    }
+    #contact-details .map {
+        width: 100%; /* Sets the width of the map element to 100% of its container */
+        height: 400px; /* Sets the height of the map element to 400 pixels */
+    }
+    #form-details {
+        margin: 10px; /* Sets the margin to 10 pixels on all sides */
+        padding: 30px 10px; /* Sets the padding to 30 pixels on the top and bottom, and 10 pixels on the left and right */
+        flex-wrap: wrap; /* Allows flex items to wrap onto multiple lines */
+    }
+    #form-details form {
+        width: 100%; /* Sets the width of the form to 100% of its container */
+        margin-bottom: 30px; /* Sets the bottom margin to 30 pixels */
+    }
+    
+    /*cart page*/
+    #cart-add {
+        flex-direction: column; /* Arranges child elements in a column */
+    }
+    #coupon {
+        width: 100%; /* Sets the width of the coupon section to 100% of its container */
+    }
+    #subtotal {
+        width: 100%; /* Sets the width of the subtotal section to 100% of its container */
+        padding: 20px; /* Sets the padding to 20 pixels on all sides */
+    }
+}
+
