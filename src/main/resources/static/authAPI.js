@@ -6,7 +6,7 @@ function showErrorMessage(elementId, message) {
 
 function sendLoginData(data) {
     // Send a POST request
-    fetch('http://ec2-44-223-24-122.compute-1.amazonaws.com:8080/api/auth/login', {
+    fetch('http://ec2-18-206-237-91.compute-1.amazonaws.com:8080/api/auth/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ function sendLoginData(data) {
 }
 
 function sendRegisterData(data){
-    fetch('http://ec2-44-223-24-122.compute-1.amazonaws.com:8080/api/auth/login', {
+    fetch('http://ec2-18-206-237-91.compute-1.amazonaws.com:8080/api/auth/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

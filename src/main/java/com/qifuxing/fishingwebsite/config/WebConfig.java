@@ -20,6 +20,7 @@ import java.util.Arrays;
  * @version 1.0.0
  */
 
+/*
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
@@ -51,3 +52,4 @@ public class WebConfig implements WebMvcConfigurer {
         return source;
     }
 }
+*/
