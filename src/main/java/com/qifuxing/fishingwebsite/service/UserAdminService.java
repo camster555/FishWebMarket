@@ -2,43 +2,50 @@ package com.qifuxing.fishingwebsite.service;
 
 import com.qifuxing.fishingwebsite.exception.InvalidInputException;
 import com.qifuxing.fishingwebsite.exception.ResourceNotFoundException;
+import com.qifuxing.fishingwebsite.model.User;
 import com.qifuxing.fishingwebsite.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Optional;
 
 /**
  * FishMW1 - Fishing Market Web Application
  *
- * This service contains business logic for managing users.
+ * This service contains business logic for managing user admin.
  *
  * @author WEIHU WANG/KEVIN WANG
- * @date 2024-05-20
+ * @date 2024-06-10
  * @version 1.0.0
  */
 
 @Service
-public class UserService {
-    /*
+public class UserAdminService {
+
     @Autowired
     private UserRepository userRepository;
-    //entityManager needed as it provides API for custom queries not provided in JPA repository
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @PersistenceContext
     private EntityManager entityManager;
 
+    public void deleteUser(Long id){
+        if (id == null) {
+            throw new InvalidInputException("Invalid input: ID is required.");
+        }
 
-    public void delete(long id){
-        if (!userRepository.existsById(id)){
-            throw new ResourceNotFoundException("Id:"+id+" not found.");
+        Optional<User> user = userRepository.findById(id);
+        if (!user.isPresent()) {
+            throw new ResourceNotFoundException("User not found");
         }
         userRepository.deleteById(id);
     }
 
-    public void deleteAll(){
+    public void deleteAllUser(){
         if (userRepository.count() == 0){
             throw new ResourceNotFoundException("User list already empty");
         }
@@ -48,13 +55,13 @@ public class UserService {
     //new 'transaction during runtime ensuring is that any part of the method that is transactional fails that database
     //goes back to the previous state.
     @Transactional
-    public void resetAutoIdIncrement(){
+    public void resetAutoIdIncrementUser(){
         if (userRepository.count()==0){
             entityManager.createNativeQuery("ALTER TABLE users AUTO_INCREMENT = 1").executeUpdate();
         }else {
             throw new InvalidInputException("User list not empty, cannot reset auto increment to 1");
         }
     }
-    */
+
 
 }

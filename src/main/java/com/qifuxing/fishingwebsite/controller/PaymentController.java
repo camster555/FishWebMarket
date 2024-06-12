@@ -37,6 +37,7 @@ public class PaymentController {
         return ResponseEntity.ok(updatedPayment);
     }
 
+    /*
     @GetMapping
     public ResponseEntity<List<PaymentDTO>> getAllPayments() {
         List<PaymentDTO> paymentDTOList = paymentService.getAllPayments();
@@ -107,4 +108,5 @@ public class PaymentController {
         paymentService.resetAutoIdIncrement();
         return ResponseEntity.noContent().build();
     }
+     */
 }

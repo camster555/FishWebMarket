@@ -112,6 +112,7 @@ public class PaymentService {
         return convertToDTO(updatePayment);
     }
 
+    /*
     public List<PaymentDTO> getAllPayments(){
         List<Payment> paymentList = paymentRepository.findAll();
         if (paymentList.isEmpty()){
@@ -213,5 +214,6 @@ public class PaymentService {
             throw new InvalidInputException("Payment list not empty, cannot reset auto increment to 1");
         }
     }
+     */
 
 }

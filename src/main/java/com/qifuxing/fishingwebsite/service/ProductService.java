@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,7 +61,7 @@ public class ProductService {
         return product;
     }
 
-    /*
+
     //this is the longer version
     public List<ProductDTO> getAllProducts(){
         //get all products
@@ -75,8 +76,18 @@ public class ProductService {
         }
         return productDTOList;
     }
-     */
 
+    public ProductDTO getProductById(Long id){
+        Product product = productRepository.findById(id)
+                //.orElseThrow is a method from Optional<> class even though not written but from the method we know
+                //from Optional class to check if null.
+                //'() ->' is a lambda expression and in this case implements 'Supplier' interface that provides the
+                // 'get()' to get exception to be thrown if 'Optional' class is empty.
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+        return convertToDTO(product);
+    }
+
+    /*
     //using stream for collections of data like list, sets and others to perform filtering,mapping, and reducing on a
     //collection, which makes it more readable and concise.
     public List<ProductDTO> getAllProducts(){
@@ -97,17 +108,7 @@ public class ProductService {
         return productDTOList;
     }
 
-    public ProductDTO getProductById(Long id){
-        Product product = productRepository.findById(id)
-                //.orElseThrow is a method from Optional<> class even though not written but from the method we know
-                //from Optional class to check if null.
-                //'() ->' is a lambda expression and in this case implements 'Supplier' interface that provides the
-                // 'get()' to get exception to be thrown if 'Optional' class is empty.
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
-        return convertToDTO(product);
-    }
-
-    public ProductDTO addProduct(ProductDTO productDTO){
+        public ProductDTO addProduct(ProductDTO productDTO){
         /*
         //the exception here need to change from null to something else in the future as if body request is null or
         //empty it won't even reach controller class which means it won't reach service class and would not reach this
@@ -118,6 +119,7 @@ public class ProductService {
             throw new InvalidInputException("Invalid data request");
         }
          */
+    /*
         Product product = convertToEntity(productDTO);
         //logger.info("Converted ProductDTO to Product: {}", product);
         Product newProduct = productRepository.save(product);
@@ -166,4 +168,6 @@ public class ProductService {
             throw new InvalidInputException("Product list not empty, cannot reset auto increment to 1");
         }
     }
+     */
+
 }

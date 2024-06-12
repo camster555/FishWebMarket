@@ -36,16 +36,17 @@ public class OrderController {
         return ResponseEntity.ok(updatedOrder);
     }
 
-    @GetMapping
-    public ResponseEntity<List<OrderDTO>> getAllOrders(){
-        List<OrderDTO> orders = orderService.getAllOrders();
-        return ResponseEntity.ok(orders);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<OrderDTO> getOrderById(@PathVariable Long id){
         OrderDTO orderDTO = orderService.findOrderById(id);
         return ResponseEntity.ok(orderDTO);
+    }
+
+    /*
+    @GetMapping
+    public ResponseEntity<List<OrderDTO>> getAllOrders(){
+        List<OrderDTO> orders = orderService.getAllOrders();
+        return ResponseEntity.ok(orders);
     }
 
     @DeleteMapping("/{id}")
@@ -64,5 +65,6 @@ public class OrderController {
         orderService.resetAutoIdIncrement();
         return ResponseEntity.noContent().build();
     }
+     */
 
 }

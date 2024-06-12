@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 @RestController
 @RequestMapping("/api/product")
 public class ProductController {
+
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
     @Autowired
     private ProductService productService;
@@ -38,6 +39,7 @@ public class ProductController {
         return ResponseEntity.ok(productDTO);
     }
 
+    /*
     @PostMapping
     public ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO productDTO){
         //logger.info("Received ProductDTO: {}", productDTO);
@@ -68,4 +70,6 @@ public class ProductController {
         productService.resetAutoIdIncrement();
         return ResponseEntity.noContent().build();
     }
+
+     */
 }

@@ -45,7 +45,7 @@ public class OrderService {
     @Autowired
     private EntityManager entityManager;
 
-    private OrderDTO convertToOrderDto(Order order){
+    public OrderDTO convertToOrderDto(Order order){
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setId(order.getId());
         orderDTO.setUser_id(order.getUser().getId());
@@ -102,6 +102,12 @@ public class OrderService {
         return convertToOrderDto(updateOrder);
     }
 
+    public OrderDTO findOrderById(Long id){
+        Order order = orderRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Order with id " +id+ " not found."));
+        return convertToOrderDto(order);
+    }
+
+    /*
     public List<OrderDTO> getAllOrders(){
         List<Order> orders = orderRepository.findAll();
         if (orders.isEmpty()){
@@ -109,11 +115,6 @@ public class OrderService {
         }
 
         return orders.stream().map(this::convertToOrderDto).collect(Collectors.toList());
-    }
-
-    public OrderDTO findOrderById(Long id){
-        Order order = orderRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Order with id " +id+ " not found."));
-        return convertToOrderDto(order);
     }
 
     public void deleteOrder(Long id){
@@ -140,4 +141,5 @@ public class OrderService {
             throw new InvalidInputException("Order list not empty, cannot reset auto increment to 1");
         }
     }
+     */
 }

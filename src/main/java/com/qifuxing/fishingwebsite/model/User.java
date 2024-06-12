@@ -17,7 +17,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,7 +26,21 @@ public class User {
     private String password;
     @Column(name = "email", nullable = false)
     private String email;
+    //annotation is needed or enum might be stored as ordinal value(0 for ADMIN, 1 for USER).
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private Role role;
 
+    public enum Role {
+        ADMIN, CUSTOMER
+    }
+
+    public Role getRole() {
+        return role;
+    }
+    public void setRole(Role role) {
+        this.role = role;
+    }
     public Long getId() {
         return id;
     }
@@ -78,5 +91,4 @@ public class User {
         //return hashcode of the id if not null, otherwise return 0.
         return id != null ? id.hashCode() : 0;
     }
-
 }

@@ -73,6 +73,7 @@ public class AuthService {
         // even if the plain password is correct so make sure when it's saved to sql it is also encoded.
         user.setPassword(passwordEncoder.encode(userRegistrationDTO.getPassword()));
         user.setEmail(userRegistrationDTO.getEmail());
+        user.setRole(User.Role.CUSTOMER);
 
         //saving new registered user to database, and it will auto generate id.
         User savedUser = userRepository.save(user);
