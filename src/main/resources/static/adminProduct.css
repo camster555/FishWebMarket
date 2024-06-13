@@ -1,0 +1,148 @@
+button.normal {
+    font-size: 15px;                 /* Set font size to 15 pixels */
+    font-weight: 600;                /* Set font weight to semi-bold (600) */
+    padding: 15px 30px;              /* Add padding: 15px top/bottom, 30px left/right */
+    color: black;                    /* Set text color to black */
+    background-color: #fff;          /* Set background color to white */
+    border-radius: 5px;              /* Round the corners with a 5px radius */
+    cursor: pointer;                 /* Change cursor to pointer on hover */
+    border: none;                    /* Remove border */
+    outline: none;                   /* Remove outline */
+    transform: 0.2s;                 /* Add a smooth transition effect */
+}
+
+button.white {
+    font-size: 15px;                /* Set font size to 13 pixels */
+    font-weight: 600;               /* Set font weight to semi-bold (600) */
+    padding: 11px 5px;             /* Add padding: 11px top/bottom, 18px left/right */
+    color: #ff0101;                    /* Set text color to white */
+    background-color: transparent;  /* Make the background color transparent */
+    cursor: pointer;                /* Change cursor to pointer on hover */
+    border: 1px solid #fff;         /* Add a 1px solid white border */
+    outline: none;                  /* Remove the outline */
+    transition: 0.2s;               /* Add a smooth transition effect */
+}
+.errorMsg{
+    color: red; /* Sets the text color to red */
+    /* border: 5px solid rgb(20, 20, 20); /* Border style, color, and width */
+    padding: 10px; /* Padding inside the border */
+    margin: 10px 0; /* Margin around the element */
+    border-radius: 5px; /* Rounded corners */
+}
+.account-page{
+    padding: 30px 0; /* Sets the padding to 50 pixels on the top and bottom, and 0 on the left and right */
+    padding-bottom: 100px; /* Adds extra padding to the bottom */
+}
+
+.form-container {
+    background: #ffffff; /* Sets the background color to white */
+    width: 200px; /* Sets the width to 300 pixels */
+    height: 500px; /* Sets the height to 400 pixels */
+    position: relative; /* Sets the position to relative */
+    text-align: center; /* Centers the text inside the container */
+    padding: 20px 0; /* Sets the top and bottom padding to 20 pixels, and no padding on the left and right */
+    margin: auto; /* Centers the container horizontally */
+    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.1); /* Adds a shadow effect */
+    overflow: hidden; /* Hides the overflow */
+}
+
+.form-container span {
+    font-weight: bold; /* Sets the font weight to bold */
+    padding: 0 10px; /* Sets the left and right padding to 10 pixels, and no padding on the top and bottom */
+    color: #555; /* Sets the text color to #555 */
+    cursor: pointer; /* Changes the cursor to a pointer when hovered over */
+    width: 100px; /* Sets the width to 100 pixels */
+    display: inline-block; /* Displays the span as an inline block element */
+}
+
+.form-btn {
+    display: inline-block; /* Displays the element as an inline block */
+}
+.form-container form {
+    max-width: 300px; /* Sets the maximum width to 300 pixels */
+    padding: 0 20px; /* Sets the left and right padding to 20 pixels, and no padding on the top and bottom */
+    position: absolute; /* Positions the form absolutely */
+    top: 130px; /* Sets the top position to 130 pixels */
+    transition: transform 1s; /* Adds a smooth transition effect */
+}
+form input {
+    width: 100%; /* Sets the width to 100% of its container */
+    height: 30px; /* Sets the height to 30 pixels */
+    margin: 10px 0; /* Sets the top and bottom margin to 10 pixels, and no margin on the left and right */
+    padding: 0 10px; /* Sets the left and right padding to 10 pixels, and no padding on the top and bottom */
+    border: 1px solid #ccc; /* Sets the border to a 1 pixel solid line with color #ccc */
+}
+form .btn {
+    width: 100%; /* Sets the width to 100% of its container */
+    border: none; /* Removes the border */
+    cursor: pointer; /* Changes the cursor to a pointer when hovered over */
+    margin: 10px 0; /* Sets the top and bottom margin to 10 pixels, and no margin on the left and right */
+}
+form .btn:focus {
+    outline: none; /* Removes the outline when the button is focused */
+}
+
+/* pop up box */
+
+.btnC {
+    padding: 10px 60px; /* Sets padding of 10px top/bottom and 60px left/right */
+    background: #fff; /* Sets the background color */
+    border: 0; /* Removes border */
+    outline: none; /* Removes outline */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    font-size: 22px; /* Sets font size */
+    font-weight: 500; /* Sets font weight */
+    border-radius: 30px; /* Rounds the corners */
+}
+
+.popup {
+    width: 400px;
+    background: #ffffff; /* White background color */
+    border-radius: 6px; /* Rounded corners */
+    position: absolute; /* Positioned relative to its nearest positioned ancestor */
+    top: 50%; /* Positioned at the center vertically */
+    left: 50%; /* Positioned at the center horizontally */
+    transform: translate(-50%, -50%) ; /* Adjusts position to the exact center */
+    text-align: center; /* Centers text */
+    padding: 0 30px 30px; /* Padding */
+    color: #000000; /* Text color */
+    border: 2px solid #000000; /* Adds a black border with a thickness of 2px */
+    visibility: hidden; /* Hides the popup */
+    transition: transform 0.5s, top 0.5s; /* Adds a smooth transition effect */
+}
+  
+.popup h2 {
+    font-size: 30px; /* Sets the font size for the heading */
+    font-weight: 500; /* Sets the font weight to medium */
+    margin: 30px 0 10px; /* Adds margin above and below the heading */
+}
+
+.popup p {
+    font-size: 25px; /* Sets the font size for the paragraph */
+    margin: 10px 0px; /* Adds margin above and below the paragraph */
+    font-weight: 900; /* Sets the font weight to medium */
+    color: #000000; /* Sets the text color to black */
+}   
+  
+.btnC-yes {
+    background: #d64949; /* Red background color */
+    color: #030303; /* White text color */
+}
+
+.btnC-no {
+    background: #01fa01; /* Blue background color */
+    color: #0c0c0c; /* White text color */
+}
+
+.popup button {
+    width: 70%; /*  Adjust width of button */
+    margin-top: 30px; /* Adds margin to the top of the button */
+    padding: 10px 0; /* Adds padding to the button */
+    border: 0; /* Removes the border */
+    outline: none; /* Removes the outline when focused */
+    font-size: 20px; /* Sets the font size for the button text */
+    border-radius: 4px; /* Rounds the corners of the button */
+    cursor: pointer; /* Changes the cursor to a pointer when hovering */
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow to the button */
+}
+

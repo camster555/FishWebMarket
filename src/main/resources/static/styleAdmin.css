@@ -1,0 +1,763 @@
+/* For admin */
+
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --clr-primary: #7380ec; /* Primary color */
+    --clr-danger: #ff7782; /* Danger color */
+    --clr-success: #41f1b6; /* Success color */
+    --clr-white: #fff; /* White color */
+    --clr-info-dark: #7d8da1; /* Dark info color */
+    --clr-info-light: #dce1eb; /* Light info color */
+    --clr-dark: #363949; /* Dark color */
+    --clr-warning: #ff4ecd; /* Warning color */
+    --clr-light: rgba(132, 139, 200, 0.18); /* Light color with transparency */
+    --clr-primary-variant: #111e88; /* Primary color variant */
+    --clr-dark-variant: #677483; /* Dark color variant */
+    --clr-color-background: #f6f6f9; /* Background color */
+    
+    --card-border-radius: 2rem; /* Card border radius */
+    --border-radius-1: 0.4rem; /* Border radius level 1 */
+    --border-radius-2: 0.8rem; /* Border radius level 2 */
+    --border-radius-3: 1.2rem; /* Border radius level 3 */
+    
+    --card-padding: 1.8rem; /* Card padding */
+    --padding-1: 1.2rem; /* Padding level 1 */
+    --box-shadow: 0 2rem 3rem var(--clr-light); /* Box shadow with light color */
+}
+
+.dark-theme-variables {
+    --clr-color-background: #181a1e; /* Sets background color for dark theme */
+    --clr-white: #202528; /* Sets white color for dark theme */
+    --clr-light: rgba(0, 0, 0, 0.4); /* Sets light color with transparency for dark theme */
+    --clr-dark: #edeffd; /* Sets dark color for dark theme */
+    --clr-dark-variant: #677483; /* Sets dark variant color for dark theme */
+    --box-shadow: 0 2rem 3rem var(--clr-light); /* Sets box shadow for dark theme */
+  }  
+
+* {
+    margin: 0; /* Sets margin to 0 for all elements */
+    padding: 0; /* Sets padding to 0 for all elements */
+    box-sizing: border-box; /* Sets box-sizing to border-box for all elements */
+    text-decoration: none; /* Removes text decoration for all elements */
+    border: 0; /* Removes border for all elements */
+    list-style: none; /* Removes list style for all elements */
+    appearance: none; /* Removes default appearance for all elements */
+} 
+
+body {
+    font-family: 'Poppins', sans-serif; /* Sets the font family for the body */
+    width: 100vw; /* Sets the width to 100% of the viewport width */
+    height: 100vh; /* Sets the height to 100% of the viewport height */
+    font-size: 0.88rem; /* Sets the font size */
+    user-select: none; /* Disables text selection */
+    overflow-x: hidden; /* Hides horizontal overflow */
+    background: var(--clr-color-background); /* Sets the background color using a CSS variable */
+}
+  
+.containerAdmin {
+    display: grid; /* Applies CSS grid layout to the container */
+    grid-template-columns: 15rem auto 15rem; /* Defines the columns for the grid layout */
+    display: grid; /* Applies CSS grid layout to the container */
+    width: 96%; /* Sets the width to 96% of the parent element */
+    gap: 1.8rem; /* Sets the gap between grid items */
+    margin: 0 auto; /* Centers the container horizontally */
+}
+  
+a {
+    color: var(--clr-dark); /* Sets anchor tag color using CSS variable */
+}
+
+h1 {
+    font-weight: 800; /* Sets font weight for h1 to bold */
+    font-size: 1.8rem; /* Sets font size for h1 */
+}
+
+h2 {
+    font-size: 1.4rem; /* Sets font size for h2 */
+}
+
+h3 {
+    font-size: 0.87rem; /* Sets font size for h3 */
+}
+
+h4 {
+    font-size: 0.8rem; /* Sets font size for h4 */
+}
+
+h5 {
+    font-size: 0.77rem; /* Sets font size for h5 */
+}
+
+small {
+    font-size: 0.75rem; /* Sets font size for small text */
+}
+
+.profile-photo img{
+    width: 2.8rem; /* Sets profile photo width */
+    height: 2.8rem; /* Sets profile photo height */
+    border-radius: 50%; /* Makes profile photo circular */
+    overflow: hidden; /* Hides overflow content */
+}
+  
+.text-muted {
+    color: var(--clr-info-dark); /* Sets color for muted text using a CSS variable */
+}
+  
+p {
+    color: var(--clr-dark-variant); /* Sets color for paragraph text using a CSS variable */
+}
+  
+b {
+    color: var(--clr-dark); /* Sets color for bold text using a CSS variable */
+}
+  
+.primary {
+    color: var(--clr-primary); /* Sets primary color using a CSS variable */
+}
+
+.success {
+    color: var(--clr-success); /* Sets color for success messages */
+}
+  
+.danger {
+    color: var(--clr-danger); /* Sets color for danger messages */
+}
+  
+.warning {
+    color: var(--clr-warning); /* Sets color for warning messages */
+}
+  
+/* aside */
+
+aside {
+    height: 100vh; /* Sets height of aside to 100% of viewport height */
+}
+  
+aside .top {
+    background-color: var(--clr-white); /* Sets background color for .top using CSS variable */
+    display: flex; /* Applies flexbox layout to .top */
+    justify-content: space-around; /* Distributes items evenly with space around them */
+    align-items: center; /* Aligns items vertically in the center */
+    margin-top: 1.4rem; /* Sets top margin for .top */
+}
+  
+aside .logo {
+    display: flex; /* Applies flexbox layout to .logo */
+    gap: 1rem; /* Sets gap between items in .logo */
+}
+
+aside .top div.close span{
+    display: none;
+}
+
+/* sidebar */
+  
+aside .sidebar {
+    background-color: var(--clr-white); /* Sets background color for sidebar */
+    display: flex; /* Applies flexbox layout to sidebar */
+    flex-direction: column; /* Arranges flex items in a column */
+    height: 85vh; /* Sets height of sidebar to 85% of viewport height */
+    position: relative; /* Positions sidebar relative to its normal position */
+    top: 1rem; /* Moves sidebar down by 1rem */
+}
+  
+aside .h3 {
+    font-weight: 500; /* Sets font weight for h3 elements inside aside */
+}
+  
+aside .sidebar a {
+    display: flex; /* Applies flexbox layout to anchor tags */
+    color: var(--clr-info-dark); /* Sets text color for anchor tags */
+    margin-left: 2rem; /* Adds left margin to anchor tags */
+    gap: 1rem; /* Sets gap between flex items */
+    align-items: center; /* Aligns items vertically in the center */
+    height: 3.2rem; /* Sets height of anchor tags */
+    transition: all .1s ease-in; /* Adds transition effect for all properties */
+}
+
+aside .sidebar a span {
+    font-size: 1.6rem; /* Sets font size for span inside sidebar anchor tags */
+    transition: all .1s ease-in; /* Adds transition effect for span */
+}
+  
+aside .sidebar a:last-child {
+    position: absolute; /* Positions the last anchor tag absolutely */
+    bottom: 1rem; /* Sets bottom position for the last anchor tag */
+    width: 100%; /* Sets width to 100% for the last anchor tag */
+}
+  
+aside .sidebar a.active {
+    background: var(--clr-light); /* Sets background color for active anchor tag */
+    color: var(--clr-primary); /* Sets text color for active anchor tag */
+    margin-left: 0; /* Removes left margin for active anchor tag */
+    border-left: 5px solid var(--clr-primary); /* Adds left border to active anchor tag */
+}
+
+aside .sidebar a.active::before {
+    content: ''; /* Adds an empty content before the active anchor tag */
+    width: 6px; /* Sets the width of the before element */
+    height: 100%; /* Sets the height of the before element */
+    background-color: var(--clr-primary); /* Sets the background color of the before element */
+}
+  
+aside .sidebar a:hover {
+    color: var(--clr-primary); /* Changes text color on hover to primary color */
+}
+  
+aside .sidebar a:hover span {
+    margin-left: 1rem; /* Adds left margin to span inside anchor tag on hover */
+    transition: .4s ease; /* Adds transition effect for margin */
+}
+  
+aside .sidebar a span.msg_count {
+    background: var(--clr-danger); /* Sets background color for message count */
+    color: var(--clr-white); /* Sets text color for message count */
+    padding: 2px 5px; /* Adds padding around message count */
+    font-size: 11px; /* Sets font size for message count */
+    border-radius: var(--border-radius-1); /* Sets border radius for message count */
+}
+    
+/* main section */
+
+main {
+    display: flex;            /* Use flexbox for layout */
+    flex-direction: column;   /* Arrange children in a column */
+    justify-content: space-between; /* Distribute space between children */
+    height: 100vh;            /* Set height to full viewport height */
+    margin-top: 0.5rem;       /* Add top margin */
+    width: auto;            /* Set width to auto */ 
+}
+  
+main input {
+    background-color: transparent; /* Sets input background to transparent */
+    border: 0; /* Removes border */
+    outline: 0; /* Removes outline */
+    color: var(--clr-dark); /* Sets input text color */
+}
+  
+main .date {
+    display: inline-block; /* Sets display to inline-block */
+    background-color: var(--clr-white); /* Sets background color */
+    border-radius: var(--border-radius-1); /* Sets border radius */
+    margin-top: 1rem; /* Adds top margin */
+    padding: 0.5rem 1.6rem; /* Adds padding */
+}
+  
+main .insights {
+    display: grid; /* Sets display to grid */
+    grid-template-columns: repeat(3, 1fr); /* Defines three equal columns */
+    gap: 1.6rem; /* Sets gap between grid items */
+}
+  
+main .insights > div {
+    background-color: var(--clr-white); /* Sets background color for insight cards */
+    padding: var(--card-padding); /* Sets padding for insight cards */
+    border-radius: var(--card-border-radius); /* Sets border radius for insight cards */
+    margin-top: 1rem; /* Adds top margin to insight cards */
+    box-shadow: var(--box-shadow); /* Adds shadow to insight cards */
+    transition: all .3s ease; /* Adds transition effect to insight cards */
+}
+  
+main .insights > div:hover {
+    box-shadow: none; /* Removes shadow on hover */
+}
+  
+main .insights > div span {
+    background: coral; /* Sets background color for spans inside insight cards */
+    padding: 0.5rem; /* Adds padding to spans inside insight cards */
+    border-radius: 50%; /* Makes spans circular */
+    color: var(--clr-white); /* Sets text color for spans */
+    font-size: 2rem; /* Sets font size for spans */
+}
+  
+main .insights > div.expenses span {
+    background: var(--clr-danger); /* Sets background color for expense spans */
+}
+
+main .insights > div.income span {
+    background: var(--clr-success); /* Sets background color for income spans */
+}
+  
+main .insights > div .middle {
+    display: flex; /* Sets display to flex for middle section */
+    align-items: center; /* Vertically centers items in middle section */
+    justify-content: space-between; /* Justifies content with space between */
+}
+  
+main .insights > div .middle h1 {
+    font-size: 1.6rem; /* Sets font size for h1 in middle section */
+}
+  
+main h1 {
+    color: var(--clr-dark); /* Sets text color for h1 */
+}
+  
+main .insights h1 {
+    color: var(--clr-dark); /* Sets text color for h1 in insights */
+}
+  
+main .insights h3 {
+    color: var(--clr-dark); /* Sets text color for h3 in insights */
+}
+  
+main .insights p {
+    color: var(--clr-dark); /* Sets text color for paragraphs in insights */
+}
+  
+main .insights .progress {
+    position: relative; /* Sets position to relative for progress */
+    height: 68px; /* Sets height for progress */
+    width: 68px; /* Sets width for progress */
+    border-radius: 50px; /* Sets border radius to make it circular */
+}
+  
+main .insights svg {
+    height: 150px; /* Sets height of SVG */
+    height: 150px; /* Sets height of SVG */
+    position: absolute; /* Sets position to absolute for SVG */
+    top: 0; /* Aligns SVG to the top */
+}
+  
+main .insights svg circle {
+    fill: none; /* Removes fill color for circle */
+    stroke: var(--clr-primary); /* Sets stroke color for circle */
+    transform: rotate(270, 80, 80); /* Rotates circle */
+    stroke-width: 5; /* Sets stroke width for circle */
+}
+  
+main .insights .sales svg circle {
+    stroke-dashoffset: 10; /* Sets stroke dash offset for sales circle */
+    stroke-dasharray: 150; /* Sets stroke dash array for sales circle */
+}
+
+main .insights .expenses svg circle {
+    stroke-dashoffset: 0; /* Sets stroke dash offset for expenses circle */
+    stroke-dasharray: 150; /* Sets stroke dash array for expenses circle */
+}
+  
+main .insights .income svg circle {
+    stroke: var(--clr-success); /* Sets stroke color for income circle */
+}
+  
+main .insights .progress .number {
+    position: absolute; /* Sets position to absolute for progress number */
+    top: 5%; /* Positions progress number from the top */
+    left: 5%; /* Positions progress number from the left */
+    height: 100%; /* Sets height to 100% */
+    width: 100%; /* Sets width to 100% */
+    display: flex; /* Sets display to flex */
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+}
+
+/* user */
+
+main .new-users {
+    margin-top: 1.3rem; /* Adds top margin to new users section */
+}
+  
+main .new-users .user-list {
+    background-color: var(--color-white); /* Sets background color for user list */
+    padding: var(--card-padding); /* Adds padding to user list */
+    border-radius: var(--card-border-radius); /* Sets border radius for user list */
+    margin-top: 1rem; /* Adds top margin to user list */
+    box-shadow: var(--box-shadow); /* Adds shadow to user list */
+    display: flex; /* Sets display to flex for user list */
+    justify-content: space-around; /* Distributes items with space around */
+    flex-wrap: wrap; /* Allows flex items to wrap */
+    gap: 1rem; /* Adds gap between items */
+    cursor: pointer; /* Changes cursor to pointer */
+    transition: all 0.3s ease; /* Adds transition effect */
+}
+
+main .new-users .user-list:hover {
+    box-shadow: none; /* Removes shadow on hover for user list */
+}
+  
+main .new-users .user-list .user {
+    display: flex; /* Sets display to flex for user */
+    flex-direction: column; /* Arranges items in a column */
+    align-items: center; /* Centers items horizontally */
+    justify-content: center; /* Centers items vertically */
+}
+  
+main .new-users .user-list .user img {
+    width: 5rem; /* Sets image width */
+    height: 5rem; /* Sets image height */
+    margin-bottom: 0.4rem; /* Adds bottom margin to image */
+    border-radius: 50%; /* Makes image circular */
+}
+  
+/* order */
+main .recent_order {
+    margin-top: 2rem; /* Adds top margin to recent_order section */
+}
+  
+main .recent_order h2 {
+    color: var(--clr-dark); /* Sets text color for h2 in recent_order */
+}
+  
+main .recent_order table {
+    background-color: var(--clr-white); /* Sets background color for table */
+    width: 100%; /* Sets table width to 100% */
+    border-radius: var(--card-border-radius); /* Sets border radius for table */
+    padding: var(--card-padding); /* Adds padding to table */
+    text-align: center; /* Centers text in table */
+    box-shadow: var(--box-shadow); /* Adds shadow to table */
+    transition: all .3s ease; /* Adds transition effect to table */
+    color: var(--clr-dark); /* Sets text color for table */
+}
+  
+main .recent_order table:hover {
+    box-shadow: none; /* Removes shadow on hover */
+}
+
+main table thead tr {
+    font-size: 20px; /* Sets font size for thead */
+}
+  
+main table tbody tr {
+    height: 3.8rem; /* Sets row height */
+    border-bottom: 1px solid var(--clr-white); /* Adds bottom border to rows */
+    color: var(--clr-dark-variant); /* Sets text color for rows */
+    font-size: 20px; /* Sets font size for rows */ 
+}
+  
+main table tbody td {
+    height: 3.8rem; /* Sets cell height */
+    border-bottom: 1px solid var(--clr-dark); /* Adds bottom border to cells */
+}
+  
+main table tbody tr:last-child td {
+    border: none; /* Removes border for last row */
+}
+  
+main .recent_order a {
+    text-align: center; /* Centers text in anchor tags */
+    display: block; /* Sets display to block for anchor tags */
+    margin: 1rem; /* Adds margin to anchor tags */
+}
+  
+/* right side */
+
+.right {
+    margin-top: 1.5rem; /* Adds top margin to right section */
+}
+  
+.right h2 {
+    color: var(--clr-dark); /* Sets text color for h2 in right section */
+}
+  
+.right .top {
+    display: flex; /* Sets display to flex for top section */
+    justify-content: start; /* Aligns items to the start */
+    gap: 2rem; /* Adds gap between items */
+}
+  
+.right .top button {
+    display: none; /* Hides the button */
+}
+  
+.right .theme-toggler {
+    background-color: var(--clr-white); /* Sets background color for theme toggler */
+    display: flex; /* Sets display to flex for theme toggler */
+    justify-content: space-between; /* Distributes items with space between */
+    height: 1.6rem; /* Sets height for theme toggler */
+    width: 4.2rem; /* Sets width for theme toggler */
+    cursor: pointer; /* Changes cursor to pointer */
+    border-radius: var(--border-radius-1); /* Sets border radius for theme toggler */
+}
+  
+.right .theme-toggler span {
+    font-size: 1.2rem; /* Sets font size for span */
+    width: 50%; /* Sets width for span */
+    height: 100%; /* Sets height for span */
+    display: flex; /* Sets display to flex for span */
+    align-items: center; /* Centers items vertically */
+    justify-content: center; /* Centers items horizontally */
+}
+  
+.right .theme-toggler span.active {
+    background-color: var(--clr-primary); /* Sets background color for active span */
+    color: #fff; /* Sets text color to white for active span */
+}
+
+.right .top .profile {
+    display: flex; /* Sets display to flex for profile */
+    gap: 2rem; /* Adds gap between items */
+    text-align: center; /* Centers text */
+}
+  
+.right .info h3 {
+    color: var(--clr-dark); /* Sets text color for h3 in info */
+}
+  
+.right .item h3 {
+    color: var(--clr-dark); /* Sets text color for h3 in item */
+}
+  
+  /* recent update */
+
+.right .recent_updates {
+    margin-top: 1rem; /* Adds top margin to recent updates */
+    margin-left: -15px; /* Adds left margin to recent updates */
+}
+  
+.right .recent_updates .updates {
+    background-color: var(--clr-white); /* Sets background color for updates */
+    padding: var(--card-padding); /* Adds padding to updates */
+    border-radius: var(--card-border-radius); /* Sets border radius for updates */
+    box-shadow: var(--box-shadow); /* Adds shadow to updates */
+    transition: all .3s ease; /* Adds transition effect to updates */
+}
+  
+.right .recent_updates .updates:hover {
+    box-shadow: none; /* Removes shadow on hover for updates */
+}
+  
+.right .recent_updates .update {
+    display: grid; /* Sets display to grid for update */
+    grid-template-columns: 2.6rem auto; /* Defines columns for grid */
+    gap: 1rem; /* Sets gap between grid items */
+    margin-bottom: 1rem; /* Adds bottom margin to update */
+}
+  
+/* sales analytics */
+.right .sales_analytics {
+    margin-top: 2rem; /* Adds top margin to sales analytics section */
+}
+  
+.right .sales_analytics .item {
+    background-color: var(--clr-white); /* Sets background color for item */
+    display: flex; /* Sets display to flex for item */
+    justify-content: space-between; /* Distributes items with space between */
+    align-items: center; /* Aligns items vertically in the center */
+    gap: 1; /* Adds gap between items */
+    margin: 10px 0; /* Adds vertical margin to item */
+    width: 100%; /* Sets item width to 100% */
+    margin-bottom: 0.8rem; /* Adds bottom margin to item */
+    padding: 1.4rem var(--card-padding); /* Adds padding to item */
+    border-radius: var(--border-radius-3); /* Sets border radius for item */
+    box-shadow: var(--box-shadow); /* Adds shadow to item */
+}
+  
+.right .sales_analytics .item:hover {
+    box-shadow: none; /* Removes shadow on hover */
+}
+  
+.right .sales_analytics .item .icon {
+    background: coral; /* Sets background color for icon */
+    padding: 0.6rem; /* Adds padding to icon */
+    color: var(--clr-white); /* Sets text color for icon */
+    border-radius: 50%; /* Makes icon circular */
+    height: 50px; /* Sets icon height */
+    width: 50px; /* Sets icon width */
+    line-height: 50px; /* Centers text vertically in icon */
+    align-items: center; /* Aligns items vertically in the center */
+}
+  
+.right .sales_analytics .item:nth-child(3) .icon {
+    background-color: var(--clr-success); /* Sets background color for third icon */
+}
+  
+.right .sales_analytics .item:nth-child(4) .icon {
+    background-color: var(--clr-danger); /* Sets background color for fourth icon */
+}
+  
+.add_products div {
+    display: flex; /* Sets display to flex */
+    height: 60px; /* Sets height to 60px */
+    width: 100%; /* Sets width to 100% */
+    text-align: center; /* Centers text horizontally */
+    justify-content: center; /* Centers items horizontally */
+    align-items: center; /* Centers items vertically */
+    border: 2px dashed; /* Adds a dashed border */
+    color: var(--clr-dark-variant); /* Sets text color */
+    margin-bottom: 40px; /* Adds bottom margin */
+}
+
+/* Pagination */
+.recent_updates h2{
+    text-align: center; /* Centers the text */
+}
+
+.recent_order h1 {
+    text-align: center; /* Centers the text */
+}
+
+
+.section-p1 {
+    padding: 40px 80px;              /* Add padding: 40px top/bottom, 80px left/right */
+}
+
+.section-m1 {
+    margin: 40px 0;                  /* Add 40px margin to the top and bottom */
+}
+
+
+#pagination {
+    text-align: center; /* Centers the text within the pagination section */
+}
+#pagination a {
+    text-decoration: none; /* Removes the underline from the links */
+    background-color: #088178; /* Sets the background color of the links */
+    padding: 15px 20px; /* Sets the padding to 15 pixels on the top and bottom, and 20 pixels on the left and right */
+    border-radius: 4px; /* Rounds the corners of the links with a 4-pixel radius */
+    color: #fff; /* Sets the text color to white */
+    font-weight: 600; /* Sets the font weight to 600 (semi-bold) */
+    margin: 0 5px; /* Add margin between pagination buttons */
+}
+#pagination a i {
+    font-size: 16px; /* Sets the font size of the icon to 16 pixels */
+    font-weight: 600; /* Sets the font weight of the icon to 600 (semi-bold) */
+}
+
+/* admin product */
+
+  
+/* Media queries */
+
+@media screen and (max-width: 1200px) {
+    .container {
+      width: 94%; /* Sets container width to 94% */
+      grid-template-columns: 7rem auto 14rem; /* Defines grid columns for container */
+    }
+
+    aside {
+        position: fixed; /* Fixes aside position */
+        width: 18rem; /* Sets aside width */
+        z-index: 3; /* Sets z-index for aside */
+        background: var(--clr-white); /* Sets background color for aside */
+        display: none; /* Hides aside */
+        left: -100px; /* Positions aside to the left */
+        animation: menuAni 1s forwards; /* Adds animation to aside */
+    }
+  
+    @keyframes menuAni {
+        to {
+              left: 0; /* Positions aside to the left */
+        }
+          
+    }
+  
+    aside .sidebar h3 {
+      display: none; /* Hides h3 elements inside sidebar */
+    }
+  
+    aside .sidebar a:last-child {
+      position: relative; /* Sets position to relative for last child anchor */
+      margin-top: 1.8rem; /* Adds top margin */
+    }
+  
+    main .insights {
+      display: grid; /* Sets display to grid */
+      grid-template-columns: repeat(1, 1fr); /* Defines single column grid */
+    }
+}
+
+/* Media queries phones */
+
+@media screen and (max-width: 768px) {
+    .container {
+      width: 100%; /* Sets container width to 100% */
+      grid-template-columns: repeat(1, 1fr); /* Defines single column grid */
+    }
+  
+    aside {
+      position: fixed; /* Fixes aside position */
+      width: 18rem; /* Sets aside width */
+      z-index: 3; /* Sets z-index for aside */
+      background: var(--clr-white); /* Sets background color for aside */
+      display: none; /* Hides aside */
+      left: -100px; /* Positions aside to the left */
+      animation: menuAni 1s forwards; /* Adds animation to aside */
+    }
+
+    @keyframes menuAni {
+        to {
+            left: 0; /* Positions aside to the left */
+        }
+        
+    }
+
+
+    aside .logo h2 {
+        display: inline; /* Sets display to inline for logo h2 */
+    }
+      
+    aside .sidebar h3 {
+        display: inline; /* Sets display to inline for sidebar h3 */
+    }
+      
+    aside .sidebar a {
+        width: 100%; /* Sets width to 100% for sidebar links */
+        height: 3.4rem; /* Sets height for sidebar links */
+    }
+      
+    aside .top div.close span {
+        display: inline; /* Sets display to inline for close span */
+        position: absolute; /* Sets position to absolute for close span */
+        right: 0; /* Positions close span to the right */
+        margin-right: 30px;
+        font-size: 35px;
+    }
+      
+    .right .top {
+        position: fixed; /* Fixes position of top section */
+        top: 0; /* Aligns top section to the top */
+        left: 0; /* Aligns top section to the left */
+        display: flex; /* Sets display to flex */
+        justify-content: center; /* Centers content horizontally */
+        align-items: center; /* Centers content vertically */
+        padding: 0 0.8rem; /* Adds horizontal padding */
+        background: var(--clr-white); /* Sets background color */
+        width: 100%; /* Sets width to 100% */
+        height: 4.6rem;
+        z-index: 2; /* Sets z-index to 2 */
+        box-shadow: 0 1rem 1rem var(--box-shadow); /* Adds shadow to top section */
+        margin: 0; /* Removes margin */
+    }
+      
+    main .insights {
+        display: grid; /* Sets display to grid */
+        grid-template-columns: repeat(1, 1fr); /* Defines single column grid */
+        gap: 1.6rem; /* Adds gap between grid items */
+        padding: 40px; /* Adds padding to insights */
+    }
+      
+    .main .recent_order {
+        padding: 30px; /* Adds padding to recent_order */
+        margin: 0 auto; /* Centers recent_order horizontally */
+    }
+
+    .right .profile {
+        position: absolute; /* Sets position to absolute for profile */
+        left: 70%; /* Positions profile 70% from the left */
+    }
+      
+    .right .recent_updates {
+        padding: 30px; /* Adds padding to recent_updates */
+    }
+      
+    .right .sales_analytics {
+        padding: 30px; /* Adds padding to sales_analytics */
+    }
+      
+    .add_products {
+        padding: 30px; /* Adds padding to add_products */
+    }
+      
+    .right .top button {
+        display: inline-block; /* Sets display to inline-block for button */
+        background: transparent; /* Sets background to transparent for button */
+        cursor: pointer; /* Changes cursor to pointer */
+        color: var(--clr-dark); /* Sets text color for button */
+        position: absolute; /* Sets position to absolute for button */
+        left: 1rem; /* Positions button 1rem from the left */
+    }
+      
+}
+  
+  
+  

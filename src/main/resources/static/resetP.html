@@ -29,32 +29,20 @@
         </div>
     </section>
     
-    <section id="loginBody" ></section>
+    <section id="resetBody" ></section>
         <div class="account-page">
             <div class="container">
                 <div class="row">
                     <div class="clo-2">
                         <div class="form-container">
                             <div class="form-btn">
-                                <span onclick="login()">登录</span>
-                                <span onclick="register()">注册</span>
-                                <hr id="Indicator">
-                            </div>
-
-                            <form id="LoginForm">
-                                <div id="loginErrorMessage" class="errorMsg"></div>
-                                <input type="text" placeholder="用户名">
-                                <input type="password" placeholder="密码">
-                                <button type="submit" class="normal">登录</button>
-                                <a href="resetP.html">忘记密码</a>
-                            </form>
-    
+                                <span >重置账号</span>
+                            </div>                  
                             <form id="RegForm">
-                                <div id="regErrorMessage" class="errorMsg"></div>
-                                <input type="text" placeholder="用户名">
-                                <input type="email" placeholder="邮箱">
-                                <input type="password" placeholder="密码">
-                                <button type="submit" class="normal">注册</button>
+                                <div id="resetErrorMessage" class="errorMsg"></div>
+                                <input type="email" placeholder="请输入邮箱">
+                                <input type="emailCode" placeholder="请输入发送邮箱的号码">
+                                <button type="submit" class="normal">重置</button>
                             </form>
                         </div>
                     </div>
@@ -62,7 +50,7 @@
             </div>
         </div>
     </section>  
-    
+     
     <footer class="section-p1">
         <div class="col">
             <img class="logo" src="img/newfishlogo.jpg" alt="">

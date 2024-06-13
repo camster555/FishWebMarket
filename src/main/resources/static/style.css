@@ -1,5 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
+:root {
+    --clr-primary: #7380ec; /* Primary color */
+    --clr-danger: #ff7782; /* Danger color */
+    --clr-success: #41f1b6; /* Success color */
+    --clr-white: #fff; /* White color */
+    --clr-info-dark: #7d8da1; /* Dark info color */
+    --clr-info-light: #dce1eb; /* Light info color */
+    --clr-dark: #363949; /* Dark color */
+    --clr-warning: #ff4ecd; /* Warning color */
+    --clr-light: rgba(132, 139, 200, 0.18); /* Light color with transparency */
+    --clr-primary-variant: #111e88; /* Primary color variant */
+    --clr-dark-variant: #677483; /* Dark color variant */
+    --clr-color-background: #f6f6f9; /* Background color */
+    
+    --card-border-radius: 2rem; /* Card border radius */
+    --border-radius-1: 0.4rem; /* Border radius level 1 */
+    --border-radius-2: 0.8rem; /* Border radius level 2 */
+    --border-radius-3: 1.2rem; /* Border radius level 3 */
+    
+    --card-padding: 1.8rem; /* Card padding */
+    --padding-1: 1.2rem; /* Padding level 1 */
+    --box-shadow: 0 2rem 3rem var(--clr-light); /* Box shadow with light color */
+}
+
+
 * {
     margin: 0;                       /* Remove default margin from all elements */
     padding: 0;                      /* Remove default padding from all elements */

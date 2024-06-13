@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>星福心</title>
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp">
+        <link rel="stylesheet" href="styleAdmin.css">
+        <link rel="stylesheet" href="adminProduct.css">
+        <link rel="icon" type="image/x-icon" href="img/newfishlogo.jpg">
+    </head>
+    <body>
+
+        <div class="containerAdmin">
+            <!-- aside section start -->
+            <aside>
+            
+                <div class="top">
+
+                    <div class="logo">
+                    <h2><span class="danger">导航</span></h2>
+                    </div>
+                    <div class="close" id="close_btn">
+                    <span class="material-symbols-sharp"> close </span>                  
+                    </div>
+                </div>
+
+                <div class="sidebar">
+                    <a href="#">
+                    <span class="material-symbols-sharp">grid_view</span>
+                    <h3>主页</h3>
+                    </a>
+                    <a href="#" class="active">
+                    <span class="material-symbols-sharp">person_outline</span>
+                    <h3>客户</h3>
+                    </a>
+                    <a href="#">
+                    <span class="material-symbols-sharp">insights</span>
+                    <h3>分析</h3>
+                    </a>
+                    <a href="#">
+                    <span class="material-symbols-sharp">mail_outline</span>
+                    <h3>消息</h3>
+                    <span class="msg_count">15</span>
+                    </a>
+                    <a href="adminProduct.html">
+                    <span class="material-symbols-sharp">receipt_long</span>
+                    <h3>产品</h3>
+                    </a>
+                    <a href="#">
+                    <span class="material-symbols-sharp">report_gmailerrorred</span>
+                    <h3>报告</h3>
+                    </a>
+                    <a href="#">
+                    <span class="material-symbols-sharp">settings</span>
+                    <h3>设置</h3>
+                    </a>
+                    <a href="#">
+                    <span class="material-symbols-sharp">add</span>
+                    <h3>添加产品</h3>
+                    </a>
+                    <a href="#">
+                    <span class="material-symbols-sharp">logout</span>
+                    <h3>退出</h3>
+                    </a>
+                </div>              
+
+            </aside>
+
+            <!-- aside section end -->
+
+            <!-- main section start -->
+
+            <main>
+
+                <!-- start orders -->
+            
+                <div class="recent_order">
+                    <h1>全部产品</h1>
+                    <table>
+                    <thead>
+                        <tr>
+                        <th>产品ID</th>
+                        <th>产品名称</th>
+                        <th>产品介绍</th>
+                        <th>产品价格</th>
+                        <th>产品数量</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- products will be added from backend -->
+                    </tbody>                 
+                    </table>
+
+                </div> 
+
+                <section id="pagination" class="section-p1">
+                    <!-- created dynamically -->
+                </section>
+                
+                
+                <!-- end orders -->
+                
+            </main>
+
+            <!-- main section end -->
+
+            <!-- right section start -->
+            
+            <div class="right">
+                <div class="top">
+                    <button id="menu_bar">
+                    <span class="material-symbols-sharp">menu</span>
+                    </button>
+                    <div class="theme-toggler">
+                    <span class="material-symbols-sharp active">light_mode</span>
+                    <span class="material-symbols-sharp ">dark_mode</span>
+                    </div>
+                    <div class="profile">
+
+                    <div class="info">
+                        <p><b>虎子</b></p>
+                        <p>Admin</p>
+                        <small class="text-muted"></small>
+                    </div>
+
+                    <div class="profile-photo">
+                        <img src="img/newfishlogo.jpg" alt="profile">
+                    </div>
+                    </div>
+                </div>
+
+            <!-- start recent update -->
+
+            <div class="recent_updates">
+                <h2>增加产品</h2>
+                <div class="updates">
+
+                    <div class="account-page">
+                        <div class="container">
+                            <div class="row">
+                                <div class="clo-2">
+                                    <div class="form-container">
+                                        <div class="form-btn">
+                                            <span >输入信息</span>
+                                        </div>                  
+                                        <form id="AddForm">
+                                            <div id="addErrorMessage" class="errorMsg"></div>
+                                            
+                                            <input type="name" name="name" placeholder="请输入产品名字">
+                                            <input type="description" name="description" placeholder="请输入产品介绍">
+                                            <input type="price" name="price" placeholder="请输入产品价格">
+                                            <input type="stockQuantity" name="stockQuantity" placeholder="请输入产品数量">
+                                            <button type="submit" class="normal">加产品</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- end recent update -->
+
+            
+
+            </div>
+
+            <!-- right section end -->
+
+            <!-- pop up box -->
+           
+            <div class="popup" id="popup">
+                <div class="popBox-body">
+                    <p>你确定要删除这个产品吗？</p>
+                </div>
+                <div class="popBox-btn">
+                    <button class="btnC-yes" id="confirmDelete">删除</button>
+                    <button class="btnC-no" id="cancelDelete">取消</button>
+                </div>
+            </div>
+        
+        </div>
+        
+        <script src="addProduct.js"></script>
+        <script src="popup.js"></script>
+        <script src="admin.js"></script>
+        <script src="paginationP.js"></script>
+    </body>
+</html>

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星福心</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp">
+    <link rel="stylesheet" href="styleAdmin.css">
+    <link rel="icon" type="image/x-icon" href="img/newfishlogo.jpg">
+</head>
+<body>
+
+    <div class="containerAdmin">
+        <!-- aside section start -->
+        <aside>
+          
+            <div class="top">
+
+                <div class="logo">
+                  <h2><span class="danger">导航</span></h2>
+                </div>
+                <div class="close" id="close_btn">
+                  <span class="material-symbols-sharp"> close </span>                  
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <a href="#">
+                  <span class="material-symbols-sharp">grid_view</span>
+                  <h3>主页</h3>
+                </a>
+                <a href="#" class="active">
+                  <span class="material-symbols-sharp">person_outline</span>
+                  <h3>客户</h3>
+                </a>
+                <a href="#">
+                  <span class="material-symbols-sharp">insights</span>
+                  <h3>分析</h3>
+                </a>
+                <a href="#">
+                  <span class="material-symbols-sharp">mail_outline</span>
+                  <h3>消息</h3>
+                  <span class="msg_count">15</span>
+                </a>
+                <a href="adminProduct.html">
+                  <span class="material-symbols-sharp">receipt_long</span>
+                  <h3>产品</h3>
+                </a>
+                <a href="#">
+                  <span class="material-symbols-sharp">report_gmailerrorred</span>
+                  <h3>报告</h3>
+                </a>
+                <a href="#">
+                  <span class="material-symbols-sharp">settings</span>
+                  <h3>设置</h3>
+                </a>
+                <a href="#">
+                <span class="material-symbols-sharp">add</span>
+                <h3>添加产品</h3>
+                </a>
+                <a href="#">
+                <span class="material-symbols-sharp">logout</span>
+                <h3>退出</h3>
+                </a>
+            </div>              
+
+        </aside>
+
+        <!-- aside section end -->
+
+        <!-- main section start -->
+
+        <main>
+            <h1>仪表盘</h1>
+            <div class="date">
+              <input type="date">
+            </div>
+            <div class="insights">
+              
+                <!-- start selling -->
+
+                <div class="sales">
+                    <span class="material-symbols-sharp">trending_up</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>总销售额</h3>
+                            <h1>$25,023</h1>
+                        </div>
+                        <div class="progress">
+                            <svg>
+                                <circle r="30" cy="40" cx="40"></circle>
+                            </svg>
+                            <div class="number">80%</div>
+                        </div>
+                    </div>
+                    <small>过去24小时</small>
+                </div>
+
+                 <!-- end selling -->
+
+                <!-- start expenses -->
+            
+                <div class="expenses">
+                    <span class="material-symbols-sharp">local_mall</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>支出</h3>
+                            <h1>$30,550</h1>
+                        </div>
+                        <div class="progress">
+                            <svg>
+                                <circle r="30" cy="40" cx="40"></circle>
+                            </svg>
+                            <div class="number">90%</div>
+                        </div>
+                    </div>
+                    <small>过去24小时</small>
+                </div>
+
+                <!-- end expenses -->
+
+                <!-- start income -->
+
+                <div class="income">
+                    <span class="material-symbols-sharp">stacked_line_chart</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>总收入</h3>
+                            <h1>$50,550</h1>
+                        </div>
+                        <div class="progress">
+                            <svg>
+                                <circle r="30" cy="40" cx="40"></circle>
+                            </svg>
+                            <div class="number">95%</div>
+                        </div>
+                    </div>
+                    <small>过去24小时</small>
+                </div>
+            
+                 <!-- end income -->
+
+            </div>
+
+            <!-- end inside -->
+
+            <!-- start users -->
+
+            <div class="new-users">
+              <h2>New Users</h2>
+              <div class="user-list">
+
+                <div class="user">
+                  <img src="img/b25bb443-631d-45dd-bca7-6cc8f1d1d040.png">
+                  <h2>Jack0</h2>
+                  <p>54 Min Ago</p>
+                </div>
+
+                <div class="user">
+                  <img src="img/b25bb443-631d-45dd-bca7-6cc8f1d1d040.png">
+                  <h2>Jack1</h2>
+                  <p>54 Min Ago</p>
+                </div>
+
+                <div class="user">
+                  <img src="img/b25bb443-631d-45dd-bca7-6cc8f1d1d040.png">
+                  <h2>Jack2</h2>
+                  <p>54 Min Ago</p>
+                </div>
+
+                <div class="user">
+                  <img src="img/b25bb443-631d-45dd-bca7-6cc8f1d1d040.png">
+                  <h2>Jack3</h2>
+                  <p>54 Min Ago</p>
+                </div>
+
+              </div>
+
+            </div>
+            
+            <!-- end users -->
+
+            <!-- start orders -->
+        
+            <div class="recent_order">
+                <h1>最近订单</h1>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>产品名称</th>
+                      <th>产品编号</th>
+                      <th>付款</th>
+                      <th>状态</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <tr>
+                      <td>鲤鱼</td>
+                      <td>456</td>
+                      <td>待付款</td>
+                      <td class="warning">待处理</td>
+                      <td class="primary">详情</td>
+                    </tr>
+
+                    <tr>
+                        <td>黄鱼</td>
+                        <td>586</td>
+                        <td>待付款</td>
+                        <td class="warning">待处理</td>
+                        <td class="primary">详情</td>
+                    </tr>
+
+                    <tr>
+                        <td>鲶鱼</td>
+                        <td>035</td>
+                        <td>待付款</td>
+                        <td class="warning">待处理</td>
+                        <td class="primary">详情</td>
+                    </tr> 
+                  </tbody>
+                </table>
+                <a href="#" class="view_all">查看所有订单</a>
+              </div> 
+              
+               <!-- end orders -->
+
+        </main>
+
+        <!-- main section end -->
+
+        <!-- right section start -->
+          
+        <div class="right">
+          <div class="top">
+            <button id="menu_bar">
+              <span class="material-symbols-sharp">menu</span>
+            </button>
+            <div class="theme-toggler">
+              <span class="material-symbols-sharp active">light_mode</span>
+              <span class="material-symbols-sharp ">dark_mode</span>
+            </div>
+            <div class="profile">
+
+              <div class="info">
+                <p><b>Babar</b></p>
+                <p>Admin</p>
+                <small class="text-muted"></small>
+              </div>
+
+              <div class="profile-photo">
+                <img src="img/newfishlogo.jpg" alt="profile">
+              </div>
+            </div>
+          </div>
+
+          <!-- start recent update -->
+
+          <div class="recent_updates">
+            <h2>Recent Update</h2>
+            <div class="updates">
+              <div class="update">
+                <div class="profile-photo">
+                  <img src="img/logofish.png" alt="">
+                </div>
+                <div class="message">
+                  <p><b>Babar</b> Received his order</p>
+                </div>
+              </div>
+
+              <div class="update">
+                <div class="profile-photo">
+                  <img src="img/logofish.png" alt="">
+                </div>
+                <div class="message">
+                  <p><b>Babar</b> Received his order</p>
+                </div>
+              </div>
+
+              <div class="update">
+                <div class="profile-photo">
+                  <img src="img/logofish.png" alt="">
+                </div>
+                <div class="message">
+                  <p><b>Babar</b> Received his order</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- end recent update -->
+
+          <!-- start sale analyctic -->
+
+          <div class="sales_analytics">
+            <h2>Sales Analytics</h2>
+           
+            <div class="item onlion">
+              <div class="icon">
+                <span class="material-symbols-sharp">shopping_cart</span>
+              </div>
+              <div class="right_text">
+                <div class="info">
+                  <h3>onlion orders</h3>
+                  <small class="text-muted">Last seen 2 Hours</small>
+                </div>
+                <h5 class="danger">-17%</h5>
+                <h3>3849</h3>
+              </div>
+            </div>
+
+            <div class="item onlion">
+              <div class="icon">
+                <span class="material-symbols-sharp">shopping_cart</span>
+              </div>
+              <div class="right_text">
+                <div class="info">
+                  <h3>onlion orders</h3>
+                  <small class="text-muted">Last seen 2 Hours</small>
+                </div>
+                <h5 class="danger">-17%</h5>
+                <h3>3849</h3>
+              </div>
+            </div>
+
+            <div class="item onlion">
+              <div class="icon">
+                <span class="material-symbols-sharp">shopping_cart</span>
+              </div>
+              <div class="right_text">
+                <div class="info">
+                  <h3>onlion orders</h3>
+                  <small class="text-muted">Last seen 2 Hours</small>
+                </div>
+                <h5 class="danger">-17%</h5>
+                <h3>3849</h3>
+              </div>
+            </div>
+
+          </div>
+          
+          <!-- end sale analyctic -->
+        
+          <div class="item add_products">
+            <div>
+              <span class="material-symbols-sharp">add</span>
+            </div>
+          </div>
+          
+
+        </div>
+
+        <!-- right section end -->
+               
+      </div>
+      
+      <script src="admin.js"></script>
+</body>
+</html>
