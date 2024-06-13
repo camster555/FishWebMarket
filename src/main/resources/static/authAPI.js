@@ -6,7 +6,7 @@ function showErrorMessage(elementId, message) {
 
 function sendLoginData(data) {
     // Send a POST request
-    fetch(/*'https://qi-fuxing.com/api/auth/login'*/ 'http://localhost:8080/api/auth/login', {
+    fetch('https://qi-fuxing.com/api/auth/login' /*'http://localhost:8080/api/auth/login'*/, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ function sendLoginData(data) {
 }
 
 function sendRegisterData(data){
-    fetch(/*'https://qi-fuxing.com/api/auth/register'*/ 'http://localhost:8080/api/auth/register', {
+    fetch('https://qi-fuxing.com/api/auth/register' /*'http://localhost:8080/api/auth/register'*/, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
