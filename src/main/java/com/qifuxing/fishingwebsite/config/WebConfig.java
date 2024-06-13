@@ -27,7 +27,7 @@ public class WebConfig implements WebMvcConfigurer {
     //CORS configuration allowing frontend on a different port to communicate with backend.
     public void addCorsMappings(CorsRegistry registry){
         registry.addMapping("/api/**")
-                .allowedOrigins("http://127.0.0.1:5500", "https://camster555.github.io/qi-fu-xing/" , "https://camster555.github.io")
+                .allowedOrigins("http://127.0.0.1:5500", "https://qi-fuxing.com", "https://www.qi-fuxing.com")
                 //.allowedOrigins("http://localhost:5500")
                 .allowedMethods("GET","POST","PUT","DELETE")
                 //allowing all headers to be passed from frontend to backend
@@ -40,7 +40,7 @@ public class WebConfig implements WebMvcConfigurer {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         //these are the websites allowed to backend to communicate with
-        configuration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500", "https://camster555.github.io", "https://camster555.github.io/qi-fu-xing/"));
+        configuration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500","https://qi-fuxing.com","https://www.qi-fuxing.com"));
         //specifying the methods allowed to be used
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
