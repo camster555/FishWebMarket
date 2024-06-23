@@ -6,6 +6,7 @@ import com.qifuxing.fishingwebsite.model.Product;
 import com.qifuxing.fishingwebsite.repository.ProductRepository;
 import com.qifuxing.fishingwebsite.specificDTO.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,6 +57,23 @@ public class ProductAdminService {
             System.out.println("Invalid input: description is empty or null");
             throw new InvalidInputException("Product description cannot be empty or null");
         }
+
+        //Don't need to catch exception here since it needs to be handled on the frontend, it won't even reach this try and catch.
+        /*
+        try {
+            Double.parseDouble(String.valueOf(productDTO.getPrice()));
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input: price is not a number");
+            throw new InvalidInputException("Product price must be a number");
+        }
+
+        try {
+            Integer.parseInt(String.valueOf(productDTO.getStockQuantity()));
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input: stock quantity is not a number");
+            throw new InvalidInputException("Product stock quantity must be a number");
+        }
+         */
 
         if (productDTO.getPrice() <= 0) {
             System.out.println("Invalid input: price is zero or negative");

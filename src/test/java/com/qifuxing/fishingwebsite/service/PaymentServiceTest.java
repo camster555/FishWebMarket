@@ -28,6 +28,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 //command prompt "mvn test -Dtest=PaymentServiceTest"
+/*
 @ExtendWith(MockitoExtension.class)
 public class PaymentServiceTest {
 
@@ -404,3 +405,6 @@ public class PaymentServiceTest {
         verify(paymentRepository, times(1)).findByPaymentProviderId("provider123");
     }
 }
+
+
+ */

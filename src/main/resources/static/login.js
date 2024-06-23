@@ -76,10 +76,15 @@ document.getElementById("RegForm").addEventListener("submit", function(event){
 document.getElementById("LoginForm").addEventListener("submit", function(event){
     // Prevent the default behavior of the form which is to reload page when pressing submit button
     event.preventDefault();
+    console.log("Form submit event triggered"); // Debugging log
+
     // Get the value of the input field with the ID "username" and assign it to the variable username
     const username = event.target[0].value;
     // Get the value of the input field with the ID "password" and assign it to the variable password
     const password = event.target[1].value;
+
+     console.log("Username:", username); // Debugging log
+     console.log("Password:", password); // Debugging log
 
     sendLoginData({username, password});
     clearErrorMessages();

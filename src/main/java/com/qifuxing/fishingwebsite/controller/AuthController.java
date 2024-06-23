@@ -11,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * FishMW1 - Fishing Market Web Application
@@ -25,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
     @Autowired
     private AuthService authService;
     //so first we map to 'UserRegistrationDTO' as seen in the parameter with RequestBody annotation, then we map
@@ -43,9 +47,11 @@ public class AuthController {
     }
 
     //don't need to handle exception since will be handled by global exception class before even reaching back to AuthController class.
+    //HttpServletResponse to receive it from the Spring framework.
     @PostMapping("/login")
-    public ResponseEntity<UserDetails> userLogin(@RequestBody LoginDTO loginDTO){
-        UserDetails userDetails = authService.authenticateUser(loginDTO);
+    public ResponseEntity<UserDetails> userLogin(@RequestBody LoginDTO loginDTO, HttpServletResponse response){
+        //logger.info("Authenticating user from AuthController: {}", loginDTO.getUsername());
+        UserDetails userDetails = authService.authenticateUser(loginDTO, response);
         return ResponseEntity.ok(userDetails);
     }
 

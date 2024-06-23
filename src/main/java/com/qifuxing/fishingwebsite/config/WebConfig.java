@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -24,6 +25,8 @@ import java.util.Arrays;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+/*
+    @Override
     //CORS configuration allowing frontend on a different port to communicate with backend.
     public void addCorsMappings(CorsRegistry registry){
         registry.addMapping("/api/**")
@@ -35,6 +38,24 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowCredentials(true);
     }
 
+ */
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("http://127.0.0.1:5500");
+        config.addAllowedOrigin("https://qi-fuxing.com");
+        config.addAllowedOrigin("https://www.qi-fuxing.com");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
+    }
+
+
+/*
     //configuration for cors to allow frontend to communicate
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
@@ -51,4 +72,6 @@ public class WebConfig implements WebMvcConfigurer {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+ */
 }

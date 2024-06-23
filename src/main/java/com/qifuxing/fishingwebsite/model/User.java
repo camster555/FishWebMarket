@@ -13,7 +13,6 @@ import java.util.Objects;
  * @version 1.0.0
  */
 
-
 @Entity
 @Table(name = "users")
 public class User {

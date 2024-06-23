@@ -33,6 +33,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        //logger.info("Received username: {}", username);
+
         // Check if the username is null or empty
         if (username == null || username.isEmpty()) {
             throw new ResourceNotFoundException("Invalid Input");
@@ -54,7 +57,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .password(user.getPassword())
                 //'USER' here is not the User class that's the table, it's a 'role' that gives me the ability to restrict
                 //or allow access to certain parts of application
-                .roles("USER")
+                .roles(user.getRole().name())
                 .build();
     }
 }

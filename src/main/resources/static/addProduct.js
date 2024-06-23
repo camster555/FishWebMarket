@@ -23,14 +23,44 @@ let currentPage = 1;
 let products = []; // Initialize an empty array to store products
 
 function fetchAndUpdateProducts() {
-    fetch('https://qi-fuxing.com/api/product') // Default is GET method
-        .then(response => response.json()) // Parse the JSON response
-        .then(data => {
-            products = data; // Save the product data to a global variable 
-            renderProducts(); // Render the products to the HTML
-            updatePaginationControls(); // Update the pagination controls
-        })
-        .catch(error => console.error('Error fetching products:', error)); // Log any errors
+    console.log("Initiating fetchAndUpdateProducts");
+    const csrfToken = getCookie('XSRF-TOKEN');
+    console.log("CSRF Token:", csrfToken);
+
+    fetch('https://localhost:8443/api/product', {
+        method: 'GET', // Explicitly stating the method for clarity
+        credentials: 'include', // Ensures cookies are sent with the request
+        headers: {
+            'X-XSRF-TOKEN': csrfToken,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        console.log("Response status:", response.status);
+        console.log("Response headers:", response.headers);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.text();
+    })
+    .then(text => {
+        try {
+            return JSON.parse(text);
+        } catch (e) {
+            console.error('Failed to parse JSON:', text);
+            throw new Error('The server response was not valid JSON');
+        }
+    })
+    .then(data => {
+         console.log("Parsed data:", data);
+        products = data; // Save the product data to a global variable
+        renderProducts(); // Render the products to the HTML
+        updatePaginationControls(); // Update the pagination controls
+    })
+    .catch(error => {
+        console.error('Error fetching products:', error);
+        // Optionally, update the UI to show the error to the user
+    });
 }
 
 function renderProducts(){
@@ -76,21 +106,47 @@ function addProduct(event) {
      //FormData is an object that captures form data as key-value pairs
      //event.target refers to the form element that triggered the event (in this case, the form with the id AddForm).
     const formData = new FormData(event.target);
+
+    console.log("Before sanitization:", {
+        name: formData.get('name'),
+        description: formData.get('description'),
+        price: formData.get('price'),
+        stockQuantity: formData.get('stockQuantity')
+    });
+
     //This object 'const productData{}' is created to structure the form data into a format that can be sent to the backend.
     const productData = {
         //names has to match the names of the form fields in the HTML
-         name: formData.get('name'), // Get the name from the form data
-         description: formData.get('description'), // Get the description from the form data
-         price: formData.get('price'), // Get the price from the form data
-         stockQuantity: formData.get('stockQuantity') // Get the stock quantity from the form data
+         name: sanitizeInput(formData.get('name')), // Get the name from the form data
+         description: sanitizeInput(formData.get('description')), // Get the description from the form data
+         price: sanitizeInput(formData.get('price')), // Get the price from the form data
+         stockQuantity: sanitizeInput(formData.get('stockQuantity')) // Get the stock quantity from the form data
     };
 
+     // Log inputs after sanitization
+     console.log("After sanitization:", productData);
+
+    // Validation for price and stockQuantity since it wont reach the backend for this type of error, it will be stopped in the front end.
+    if (isNaN(productData.price) || productData.price <= 0) {
+        document.getElementById('addErrorMessage').textContent = 'Invalid input: price must be a number or number greater than 0';
+        return;
+    }
+    if (isNaN(productData.stockQuantity) || productData.stockQuantity <= 0) {
+        document.getElementById('addErrorMessage').textContent = 'Invalid input: stock quantity must be an integer or number greater than 0';
+        return;
+    }
+
+    const csrfToken = getCookie('XSRF-TOKEN');
+          console.log('CSRF Token:', csrfToken); // Debugging
+
       // Send the new product data to the backend
-    fetch('https://qi-fuxing.com/api/productadmin/product', {
+    fetch(/*'https://qi-fuxing.com/api/productadmin/product'*/ /*'http://localhost:8080/api/productadmin/product'*/ 'https://localhost:8443/api/admin/product', {
         method: 'POST', // Set the request method to POST
         headers: {
-            'Content-Type': 'application/json' // Set the content type to JSON
+            'Content-Type': 'application/json',
+            'X-XSRF-TOKEN' : csrfToken
         },
+        credentials: 'include',
         body: JSON.stringify(productData) // Convert the product data to a JSON string
     })
     .then(response => {
@@ -114,7 +170,8 @@ function addProduct(event) {
 function deleteProduct(event) {
     const productId = event.target.getAttribute('data-id'); // Get the product ID from the button's data attribute
 
-    fetch(`https://qi-fuxing.com/api/productadmin/product/${productId}`, { // Use the DELETE method to delete the product
+    fetch(/*`https://qi-fuxing.com/api/productadmin/product/${productId}`*/ /*'http://localhost:8080/api/productadmin/product/${productId}'*/
+        'https://localhost:8443/api/productadmin/product/${productId}', { // Use the DELETE method to delete the product
         method: 'DELETE',
     })
     .then(response => {

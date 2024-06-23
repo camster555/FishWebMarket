@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
-@RequestMapping("/api/productadmin")
+@RequestMapping("/api/admin/product")
 public class ProductAdminController {
 
     @Autowired
     private ProductAdminService productAdminService;
 
-    @PostMapping("/product")
+    @PostMapping
     public ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO productDTO){
         //logger.info("Received ProductDTO: {}", productDTO);
         ProductDTO newProduct = productAdminService.addProduct(productDTO);
@@ -32,13 +32,13 @@ public class ProductAdminController {
         return ResponseEntity.ok(newProduct);
     }
 
-    @PutMapping("/product/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO){
         ProductDTO updateProduct = productAdminService.updateProduct(id, productDTO);
         return ResponseEntity.ok(updateProduct);
     }
 
-    @DeleteMapping("/product/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id){
         productAdminService.deleteProduct(id);
         return ResponseEntity.noContent().build();

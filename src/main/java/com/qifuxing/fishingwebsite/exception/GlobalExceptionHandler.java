@@ -37,20 +37,17 @@ public class GlobalExceptionHandler {
         //see on login page inspect mode.
         return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
-
     @ExceptionHandler(LoginFailedException.class)
     public ResponseEntity<?> handlerUserLoginFailed(LoginFailedException eMsg){
         ErrorResponse errorResponse = new ErrorResponse("401", eMsg.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
-
     @ExceptionHandler(InvalidInputException.class)
     public ResponseEntity<?> handlerInvalidInputException(InvalidInputException eMsg){
         //logger.error("InvalidInputException: " + eMsg.getMessage());
         ErrorResponse errorResponse = new ErrorResponse("400", eMsg.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
-
     //this exception happens spring tries to convert HTTP message but since it is empty it won't even reach controller
     //class or it's methods.
     @ExceptionHandler(HttpMessageNotReadableException.class)
@@ -58,11 +55,15 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse("400", eMsg.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
-
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException eMsg){
         ErrorResponse errorResponse = new ErrorResponse("404", eMsg.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(JwtErrorException.class)
+    public ResponseEntity<?> handleJwtErrorException(JwtErrorException eMsg){
+        ErrorResponse errorResponse = new ErrorResponse("400", eMsg.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
 }

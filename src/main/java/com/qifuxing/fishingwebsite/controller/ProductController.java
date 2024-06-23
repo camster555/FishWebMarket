@@ -29,7 +29,9 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<ProductDTO>> getAllProducts(){
+        logger.info("getAllProducts method called in controller");
         List<ProductDTO> productDTOList = productService.getAllProducts();
+        logger.info("Retrieved {} products", productDTOList.size());
         return ResponseEntity.ok(productDTOList);
     }
 

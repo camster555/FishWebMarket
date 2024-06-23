@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //event is automatically passed to the showPopup function by the event listener. It represents the event that occurred (in this case, a click).
 function showPopUp(event) {
-    //console.log("showPopup called"); // Debug log to confirm the function is called
+    //console.log("showPopup called");
 
     //when using getElementById, do not use '.popup' as it is an ID, not a class so it should be 'getElementById('popup')'.
     const popUp = document.getElementById('popup'); // Select the popup element

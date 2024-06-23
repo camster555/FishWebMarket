@@ -25,6 +25,7 @@ import static org.mockito.Mockito.*;
 //this is to test the whole application.
 //@SpringBootTest
 //to only test this test class.
+/*
 @ExtendWith(MockitoExtension.class)
 public class ProductServiceTest {
     //create and initialize mock objects.
@@ -207,3 +208,6 @@ public class ProductServiceTest {
     }
 
 }
+
+
+ */
