@@ -6,16 +6,17 @@ import java.util.Objects;
 /**
  * FishMW1 - Fishing Market Web Application
  *
- * This entity represents a user in the system.
+ * This entity represents an admin in the system.
  *
  * @author WEIHU WANG/KEVIN WANG
- * @date 2024-05-20
+ * @date 2024-06-30
  * @version 1.0.0
  */
 
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "admins")
+public class Admin {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -59,7 +60,7 @@ public class User {
         if (o == null || getClass() != o.getClass()) return false;
 
         //make the other object to current object class.
-        User user = (User) o;
+        Admin admin = (Admin) o;
 
         /*
         //so it is first seeing if id is null, if not then checks if id equals order id which holds id from the o object.
@@ -67,7 +68,7 @@ public class User {
          */
 
         //shorter version of using Objects.equal ti handle null checks and equality
-        return Objects.equals(id,user.id);
+        return Objects.equals(id,admin.id);
     }
 
     //so when object are equal from the equals method then they must have same hashcode
@@ -76,4 +77,5 @@ public class User {
         //return hashcode of the id if not null, otherwise return 0.
         return id != null ? id.hashCode() : 0;
     }
+
 }

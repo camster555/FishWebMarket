@@ -22,6 +22,8 @@ function sendLoginData(data) {
         credentials: 'include',
         // Convert the data object to a JSON string and send it as the body of the request
         body: JSON.stringify(data),
+        //this will allow redirect since we are using AJAX, so we need to handle the redirect in the frontend
+        redirect: 'follow'
     })
     // Response is from backend server
     //so this is how javascript works, when 'response.json()' is called, it will return a promise and next 'then' will be called when the promise is resolved
@@ -32,6 +34,13 @@ function sendLoginData(data) {
             //returns a promise that resolves to the parsed JSON object of the response body. This JSON object typically contains error details.
             return response.json().then(error => { throw new Error(error.message) });
         }
+
+        if (response.redirected) {
+            console.log('Redirecting to:', response.url);
+            window.location.href = response.url;
+            return; // Exit the function as we are redirecting
+        }
+
         return response.json();
     })
     // so data here here resolves the promise returned by 'response.json()'
@@ -44,8 +53,6 @@ function sendLoginData(data) {
         console.error('Error:', error);
         showErrorMessage('loginErrorMessage', error.message);
     });
-
-    //logging here after data sent to see what is sent?
 }
 
 function sendRegisterData(data){

@@ -1013,6 +1013,32 @@ form a {
     transition: transform 1s; /* Adds a smooth transition effect */
 }
 
+/* adminLogin page */
+
+.center-textAdmin {
+    flex: 1;                  /* Allow the text to grow and take up available space */
+    text-align: center;       /* Center the text horizontally */
+    font-size: 50px;          /* Set font size for the text */
+    font-weight: bold;        /* Make the text bold */
+    color: #0a0a0a;           /* Set the text color */
+    transform: translateX(15px); /* Move the text 10px to the right (use negative value to move left) */
+}
+
+#LoginFormAdmin {
+   
+    
+}
+
+#IndicatorAdmin {
+    width: 100px; /* Sets the width of the indicator to 100 pixels */
+    border: none; /* Removes the border */
+    background: #ff523b; /* Sets the background color of the indicator */
+    height: 3px; /* Sets the height of the indicator to 3 pixels */
+    margin-top: 8px; /* Sets the top margin to 8 pixels */
+   
+    transition: transform 1s; /* Adds a smooth transition effect */
+}
+
 /* For smaller screen*/
 @media (max-width: 799px) {
     .section-p1 {

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Repository;
  * @version 1.0.0
  */
 
-
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     //custom method for Jpa to use are 'findBy', 'readyBy', 'queryBy', follow by property name of 'User' entity and

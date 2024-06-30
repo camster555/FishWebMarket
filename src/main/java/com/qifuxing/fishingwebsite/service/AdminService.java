@@ -60,7 +60,6 @@ public class AdminService {
         admin.setUsername(username);
         admin.setPassword(passwordEncoder.encode(password));
         admin.setEmail(email);
-        admin.setRole(User.Role.ADMIN);
         return userRepository.save(admin);
     }
 

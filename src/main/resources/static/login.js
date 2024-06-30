@@ -32,7 +32,6 @@ function clearInputFields(form) {
     }
 }
 
-
 // Define the function register
 function register() {
     // Set the transform property of RegForm to translate it to the original position

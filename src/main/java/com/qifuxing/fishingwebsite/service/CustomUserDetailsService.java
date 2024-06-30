@@ -3,7 +3,9 @@ package com.qifuxing.fishingwebsite.service;
 import com.qifuxing.fishingwebsite.exception.LoginFailedException;
 import com.qifuxing.fishingwebsite.exception.ResourceNotFoundException;
 import com.qifuxing.fishingwebsite.exception.UsernameAlreadyExistsException;
+import com.qifuxing.fishingwebsite.model.Admin;
 import com.qifuxing.fishingwebsite.model.User;
+import com.qifuxing.fishingwebsite.repository.AdminRepository;
 import com.qifuxing.fishingwebsite.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,6 +31,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private AdminRepository adminRepository;
     private static final Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
 
     @Override
@@ -57,7 +61,23 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .password(user.getPassword())
                 //'USER' here is not the User class that's the table, it's a 'role' that gives me the ability to restrict
                 //or allow access to certain parts of application
-                .roles(user.getRole().name())
+                .roles("USER")
+                .build();
+    }
+
+    public UserDetails loadAdminByUsername(String username) throws UsernameNotFoundException {
+        // Check if the username is null or empty
+        if (username == null || username.isEmpty()) {
+            throw new ResourceNotFoundException("Invalid Input");
+        }
+        Admin admin = adminRepository.findByUsername(username);
+        if (admin == null) {
+            throw new UsernameNotFoundException("Invalid username or password");
+        }
+        return org.springframework.security.core.userdetails.User.builder()
+                .username(admin.getUsername())
+                .password(admin.getPassword())
+                .roles("ADMIN") // Default role for admin authentication
                 .build();
     }
 }

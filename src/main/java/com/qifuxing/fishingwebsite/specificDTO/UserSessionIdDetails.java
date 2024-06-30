@@ -1,5 +1,8 @@
 package com.qifuxing.fishingwebsite.specificDTO;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * FishMW1 - Fishing Market Web Application
  *
@@ -16,8 +19,11 @@ public class UserSessionIdDetails {
     private String username;
     private String role;
 
-    public UserSessionIdDetails(String username, String role){
+    public UserSessionIdDetails() {}
 
+    @JsonCreator
+    public UserSessionIdDetails(@JsonProperty("username") String username,
+                                @JsonProperty("role") String role) {
         this.username = username;
         this.role = role;
     }

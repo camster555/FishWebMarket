@@ -32,7 +32,6 @@ import org.slf4j.LoggerFactory;
  * @version 1.0.0
  */
 
-
 @Component
 public class CustomSessionFilter extends OncePerRequestFilter {
 
@@ -43,18 +42,23 @@ public class CustomSessionFilter extends OncePerRequestFilter {
 
     protected boolean shouldFilter(HttpServletRequest request){
         String path = request.getRequestURI();
-        return path.startsWith("/api/admin/");
+        return path.startsWith("/api/admin/") ||
+                path.equals("/admin.html") ||
+                path.equals("/adminProduct.html") ||
+                path.equals("/api/product");
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)throws ServletException, IOException {
+        logger.debug("CustomSessionFilter processing request to: {}", request.getRequestURI());
 
         if (!shouldFilter(request)){
+            logger.debug("Request does not require filtering, proceeding with chain");
             filterChain.doFilter(request,response);
             return;
         }
 
-        logger.debug("Processing admin request to {}", request.getRequestURI());
+        //logger.debug("Processing admin request to {}", request.getRequestURI());
 
         String sessionId = null;
 
@@ -73,6 +77,11 @@ public class CustomSessionFilter extends OncePerRequestFilter {
             String userValueJson = redisTemplate.opsForValue().get("Session:"+sessionId);
 
             if (userValueJson != null){
+                userValueJson = userValueJson.replace("\\\"", "\"").replace("\\\\", "\\");
+                // remove additional double quotes around the JSON string if present
+                if (userValueJson.startsWith("\"") && userValueJson.endsWith("\"")) {
+                    userValueJson = userValueJson.substring(1, userValueJson.length() - 1);
+                }
 
                 //convert json back to userSessionDetails object
                 ObjectMapper objectMapper = new ObjectMapper();
@@ -84,7 +93,7 @@ public class CustomSessionFilter extends OncePerRequestFilter {
                 }
 
                 String username = userSessionIdDetails.getUsername();
-                String role = userSessionIdDetails.getRole();
+                String role = "ROLE_" + userSessionIdDetails.getRole();
 
                 //creates an authentication token for the user "john_doe" with the role "CUSTOMER."
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken

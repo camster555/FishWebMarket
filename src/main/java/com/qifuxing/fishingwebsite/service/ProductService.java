@@ -61,8 +61,8 @@ public class ProductService {
         return product;
     }
 
-
-    //this is the longer version
+    /*
+    //this is the longer version and single thread
     public List<ProductDTO> getAllProducts(){
         //get all products
         List<Product> product = productRepository.findAll();
@@ -75,6 +75,28 @@ public class ProductService {
             productDTOList.add(productDTO);
         }
         return productDTOList;
+    }
+     */
+
+    //multi-thread
+    public List<ProductDTO> getAllProducts(){
+
+        //here getting all products from database is still in single thread.
+        List<Product> products = productRepository.findAll();
+
+        /*
+        //here using a parallel stream to convert each Product entity to a ProductDTO concurrently
+        return products.parallelStream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+         */
+
+        return products.parallelStream()
+                .map(product -> {
+                    System.out.println("Processing product ID " + product.getId() + " on thread " + Thread.currentThread().getName());
+                    return convertToDTO(product);
+                })
+                .collect(Collectors.toList());
     }
 
     public ProductDTO getProductById(Long id){

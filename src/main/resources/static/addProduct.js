@@ -1,6 +1,7 @@
 // Wait until the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
     //console.log("DOM fully loaded and parsed");
+    const csrfToken = getCookie('XSRF-TOKEN');
 
     // Add an event listener to the form with the id 'AddForm'
     //This ensures that the form element exists in the DOM when you try to attach the event listener to it.
@@ -168,21 +169,41 @@ function addProduct(event) {
 }
 
 function deleteProduct(event) {
-    const productId = event.target.getAttribute('data-id'); // Get the product ID from the button's data attribute
 
-    fetch(/*`https://qi-fuxing.com/api/productadmin/product/${productId}`*/ /*'http://localhost:8080/api/productadmin/product/${productId}'*/
-        'https://localhost:8443/api/productadmin/product/${productId}', { // Use the DELETE method to delete the product
+    const productId = event.target.getAttribute('data-id'); // Get the product ID from the button's data attribute
+    const csrfToken = getCookie('XSRF-TOKEN');
+
+
+   if (!csrfToken) {
+        console.error('CSRF token not found');
+        alert('Error: Unable to complete request. Please refresh the page and try again.');
+        return;
+    }
+
+    //here needs "`" instead of "'" to use the variable productId.
+    fetch(/*'https://qi-fuxing.com/api/productadmin/product/${productId}'*/ /*'http://localhost:8080/api/productadmin/product/${productId}'*/
+        `https://localhost:8443/api/admin/product/${productId}`, { // Use the DELETE method to delete the product
         method: 'DELETE',
+        headers: {
+            'X-XSRF-TOKEN': csrfToken
+        },
+        credentials: 'include'
     })
     .then(response => {
-        if (!response.ok) {
-            return response.json().then(error => { throw new Error(error.message); });
-        }
+        console.log('Delete response:', response);
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        console.error('Error response:', text);
+                        throw new Error(text);
+                    });
+                }
+                return response.text();
         // No need to return response.json() because DELETE not returning a JSON body
     })
     .then(() => {
         fetchAndUpdateProducts(); // Refresh the product list after successful deletion
         hidePopup(); // Hide the confirmation popup
+        alert('Product successfully deleted');
     })
     .catch(error => {
         console.error('Error deleting product:', error); // Log any errors

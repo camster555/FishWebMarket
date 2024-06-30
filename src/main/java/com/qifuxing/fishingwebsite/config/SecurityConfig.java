@@ -1,6 +1,5 @@
 package com.qifuxing.fishingwebsite.config;
 
-
 import com.qifuxing.fishingwebsite.security.CustomSessionFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,16 +23,13 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import javax.servlet.http.Cookie;
 import java.io.IOException;
-
 /**
  * FishMW1 - Fishing Market Web Application
  *
@@ -42,8 +39,7 @@ import java.io.IOException;
  * @date 2024-05-20
  * @version 1.0.0
  */
-
-@EnableWebSecurity
+@EnableWebSecurity//(debug = true)
 @Configuration
 public class SecurityConfig {
     //NOTE, somehow when securityConfig class uses UserDetailsService interface, spring tries to create a default
@@ -53,15 +49,12 @@ public class SecurityConfig {
     // UserDetailsService -> SecurityConfig -> UserDetailsService which will produce error during runtime so the
     //solution is to create a custom class called CustomUserDetailsService so when spring calls, it won't call the default
 
-    public SecurityConfig() {
-        logger.info("SecurityConfig constructor called");
-    }
-
     private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
     @Autowired
     private UserDetailsService userDetailsService;
+    //@Autowired
     @Autowired
     private CustomSessionFilter customSessionFilter;
 
@@ -74,13 +67,13 @@ public class SecurityConfig {
                 .build();
     }
 
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         //logger.info("Starting HttpSecurity configuration");
 
         // means that csrf token will be placed in a cookie repository that will be accessible in js
-        http
+        http//.csrf().disable()
+
                 .addFilterBefore(customSessionFilter, UsernamePasswordAuthenticationFilter.class)
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
@@ -110,36 +103,29 @@ public class SecurityConfig {
                         }
                     }
 
-                    String username = httpRequest.getParameter("username");
-                    String password = httpRequest.getParameter("password");
-                    //logger.info("Received username: {}", username);
-                    //logger.info("Received password: {}", password);
-
                     filterChain.doFilter(request, response);
 
                 }, CsrfFilter.class)
-                // start configuration for specific URL rules
+                //DISABLE formLogin when have custom controller .
                 .authorizeRequests()
-                .antMatchers("/", "/index.html", "/about.html", "/contact.html","/shop.html",
-                        "/cart.html","/admin.html","/adminProduct.html","/sProduct.html","/resetP.html").permitAll()
-                //remember to ADD '/' so its "/api/auth/register" and not "api/auth/register".
-                .antMatchers("/api/auth/register","/api/auth/login","/api/product").permitAll()
-                .antMatchers("/api/admin/**").hasRole("ADMIN")
-                //need to allow static files here or css won't apply.
+                .antMatchers("/index.html", "/about.html", "/contact.html","/shop.html",
+                        "/cart.html","/sProduct.html","/resetP.html","/adminLogin.html","/login.html").permitAll()
+                .antMatchers("/api/auth/register","/api/auth/login"
+                        ,"/api/auth/admin-login"/*",/api/auth/admin-register"*/).permitAll()
                 .antMatchers( "/img/**", "/style.css","/addProduct.js", "/authAPI.js",
-                        "/admin.js", "/login.js", "/paginationP.js", "/popup.js", "/script.js", "/adminProduct.css",
-                        "/styleAdmin.css", "/security.js").permitAll()
+                "/admin.js", "/login.js", "/paginationP.js", "/popup.js", "/script.js", "/adminProduct.css",
+                "/styleAdmin.css", "/security.js","/adminLoginScript.js").permitAll()
+                .antMatchers("/api/admin/**", "/admin.html", "/adminProduct.html").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                    .loginPage("/login.html")
-                    .permitAll();
-
+                .formLogin().disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         //logger.info("HttpSecurity configuration completed");
         return http.build();
     }
 
-/*
+    /*
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         logger.info("Starting HttpSecurity configuration");
@@ -153,10 +139,11 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .formLogin().disable(); // Disable form-based login
 
+        logger.info("Security configuration completed");
         return http.build();
     }
 
- */
+     */
 
     @Bean
     //passwordEncoder interface main function are 'string encode' new password and also verifies it with 'boolean matches' method

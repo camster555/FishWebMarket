@@ -1,11 +1,17 @@
 package com.qifuxing.fishingwebsite.controller;
 
+import com.qifuxing.fishingwebsite.config.SecurityConfig;
 import com.qifuxing.fishingwebsite.model.Product;
 import com.qifuxing.fishingwebsite.service.ProductAdminService;
 import com.qifuxing.fishingwebsite.specificDTO.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+
 
 /**
  * FishMW1 - Fishing Market Web Application
@@ -20,6 +26,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/admin/product")
 public class ProductAdminController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ProductAdminController.class);
 
     @Autowired
     private ProductAdminService productAdminService;
@@ -40,6 +48,10 @@ public class ProductAdminController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        logger.debug("Current authentication: {}", auth);
+
+
         productAdminService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }

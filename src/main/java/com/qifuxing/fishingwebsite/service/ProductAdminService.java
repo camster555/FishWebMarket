@@ -120,6 +120,7 @@ public class ProductAdminService {
         }
         productRepository.deleteById(id);
     }
+
     public void deleteAllProduct(){
         if (productRepository.count() == 0){
             throw new ResourceNotFoundException("Product list already empty");
