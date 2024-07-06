@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  */
 
 @RestController
-@RequestMapping("/api/product")
+@RequestMapping("/api/public/product")
 public class ProductController {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
@@ -29,7 +29,7 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<ProductDTO>> getAllProducts(){
-        logger.info("getAllProducts method called in controller");
+        logger.info("getAllProducts method called in pAdmin controller");
         List<ProductDTO> productDTOList = productService.getAllProducts();
         logger.info("Retrieved {} products", productDTOList.size());
         return ResponseEntity.ok(productDTOList);

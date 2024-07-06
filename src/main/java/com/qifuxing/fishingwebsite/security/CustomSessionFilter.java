@@ -44,8 +44,7 @@ public class CustomSessionFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
         return path.startsWith("/api/admin/") ||
                 path.equals("/admin.html") ||
-                path.equals("/adminProduct.html") ||
-                path.equals("/api/product");
+                path.equals("/adminProduct.html") ;
     }
 
     @Override
@@ -53,7 +52,7 @@ public class CustomSessionFilter extends OncePerRequestFilter {
         logger.debug("CustomSessionFilter processing request to: {}", request.getRequestURI());
 
         if (!shouldFilter(request)){
-            logger.debug("Request does not require filtering, proceeding with chain");
+            //logger.debug("Request does not require filtering, proceeding with chain");
             filterChain.doFilter(request,response);
             return;
         }
@@ -95,11 +94,11 @@ public class CustomSessionFilter extends OncePerRequestFilter {
                 String username = userSessionIdDetails.getUsername();
                 String role = "ROLE_" + userSessionIdDetails.getRole();
 
-                //creates an authentication token for the user "john_doe" with the role "CUSTOMER."
+                //creates an authentication token for the user "john_doe" with the role "ADMIN."
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken
                         (username, null, AuthorityUtils.createAuthorityList(role));
 
-                //updates the security system's records to indicate that "john_doe" is authenticated as a CUSTOMER.
+                //updates the security system's records to indicate that "john_doe" is authenticated as a ADMIN.
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             } else {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

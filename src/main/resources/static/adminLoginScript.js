@@ -36,14 +36,19 @@ function sendAdminLoginData(data) {
 
     })
     .then(response => {
-        if (!response.ok) {
-            return response.json().then(error => { throw new Error(error.message) });
-        }
+      if (response.redirected) {
+           window.location.href = response.url; // Handle redirect
+           return;
+      }
+      if (!response.ok) {
+           return response.json().then(error => { throw new Error(error.message) });
+      }
 
-        return response.json();
+      return response.json();
     })
     .then(data => {
         console.log('Admin login success', data);
+        alert('Admin login successful!');
     })
     .catch((error) => {
         console.error('Error:', error);

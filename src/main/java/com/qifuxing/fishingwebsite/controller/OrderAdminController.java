@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/api/adminorder")
+@RequestMapping("/api/admin/order")
 public class OrderAdminController {
     @Autowired
     private OrderAdminService orderAdminService;

@@ -25,7 +25,6 @@ import java.util.Date;
  * @version 1.0.0
  */
 
-
 @Component
 public class JwtUtil {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
@@ -36,10 +35,17 @@ public class JwtUtil {
     private int jwtExpireTime;
 
     private Key signInKeyDecoded(){
-        //decoding back to original binary data
-        byte[] keyBytes = Decoders.BASE64.decode(jwtKey);
-        //method takes the byte array (decoded key) and creates a javax.crypto.SecretKey suitable for use with HMAC-SHA algorithms.
-        return Keys.hmacShaKeyFor(keyBytes);
+        try {
+            //decoding back to original binary data
+            //here have to USE base64url instead of just base64 since for encoding we use base64url which include things
+            //like '-'.
+            byte[] keyBytes = Decoders.BASE64URL.decode(jwtKey);
+            //method takes the byte array (decoded key) and creates a javax.crypto.SecretKey suitable for use with HMAC-SHA algorithms.
+            return Keys.hmacShaKeyFor(keyBytes);
+        } catch (IllegalArgumentException e){
+            logger.error("Invalid base code-64 secret key: "+ e.getMessage());
+            throw new JwtErrorException("Invalid base code-64 secret key");
+        }
     }
 
     public String generateJwtToken(UserDetails userDetails){

@@ -40,7 +40,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         //logger.info("Received username: {}", username);
 
-        // Check if the username is null or empty
         if (username == null || username.isEmpty()) {
             throw new ResourceNotFoundException("Invalid Input");
         }

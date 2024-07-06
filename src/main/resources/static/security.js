@@ -1,4 +1,29 @@
-//now it will prevent any XSS attacks like inputting script tags in the input field because the special characters will be transformed into HTML entities 
+// Call this function on initial page load to trigger CSRF token generation
+document.addEventListener('DOMContentLoaded', (event) => {
+    console.log('Document cookies on initial load:', document.cookie); // Log cookies on initial load
+    fetchCsrfToken();
+    console.log('Document cookies on after fetchCsrfToken function:', document.cookie); // Log cookies on initial load
+});
+
+// Function to fetch the CSRF token on initial page load
+function fetchCsrfToken() {
+    fetch('https://localhost:8443/api/csrf-token', {
+        method: 'GET',
+        credentials: 'include'
+    })
+    .then(response => response.text())
+    .then(token => {
+        console.log('Fetched CSRF Token:', token);
+        // Optionally, manually set the token in a cookie if needed
+        document.cookie = `XSRF-TOKEN=${token}; Path=/; Secure; SameSite=None`;
+        console.log('Document cookies after setting CSRF token:', document.cookie);
+    })
+    .catch(error => {
+        console.error('Error during initial request:', error);
+    });
+}
+
+//now it will prevent any XSS attacks like inputting script tags in the input field because the special characters will be transformed into HTML entities
 //for example <script> will be transformed into &lt;script&gt;
 function sanitizeInput(input) {
     const div = document.createElement('div'); // Create a new div element
@@ -29,26 +54,3 @@ function getCookie(name) {
     // If no cookie with the specified name is found, return null
     return null;
 }
-
-// Function to fetch the CSRF token on initial page load
-function fetchCsrfToken() {
-    fetch('https://localhost:8443/', {
-        method: 'GET',
-        credentials: 'include'
-    })
-    .then(response => {
-        console.log('Initial request response:', response);
-        console.log('Response headers:', [...response.headers]);
-        console.log('Document cookies after initial request:', document.cookie);
-    })
-    .catch(error => {
-        console.error('Error during initial request:', error);
-    });
-}
-
-// Call this function on initial page load to trigger CSRF token generation
-document.addEventListener('DOMContentLoaded', (event) => {
-    console.log('Document cookies on initial load:', document.cookie); // Log cookies on initial load
-    fetchCsrfToken();
-    //console.log('Document cookies on after fetchCsrfToken function:', document.cookie); // Log cookies on initial load
-});

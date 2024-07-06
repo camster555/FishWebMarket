@@ -12,11 +12,15 @@ import com.qifuxing.fishingwebsite.repository.UserRepository;
 import com.qifuxing.fishingwebsite.specificDTO.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.qifuxing.fishingwebsite.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * FishMW1 - Fishing Market Web Application
@@ -51,6 +56,8 @@ public class AuthService {
     private CustomUserDetailsService customUserDetailsService;
     @Autowired
     private RedisTemplate<String,Object> redisTemplate;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
 
@@ -97,7 +104,9 @@ public class AuthService {
         return convertToUserDto(savedUser);
     }
 
-    public UserDetails authenticateUser(LoginDTO loginDTO, HttpServletResponse response) throws IOException {
+    //user login with jwt token in cookie
+
+    public void authenticateUser(LoginDTO loginDTO, HttpServletResponse response) throws IOException {
         //logger.info("Authenticating user: {}", loginDTO.getUsername());
         //get userDetail instance which contains the username and password
         //in 'loadUserByUsername' already checks for username in the database
@@ -108,11 +117,42 @@ public class AuthService {
             throw new LoginFailedException("Invalid username or password");
         }
 
-        //response.sendRedirect("/index.html");
+        String jwtToken = jwtUtil.generateJwtToken(userDetails);
+
+        Cookie jwtCookie = new Cookie("JWT_TOKEN", jwtToken);
+        jwtCookie.setHttpOnly(true);
+        jwtCookie.setSecure(true);
+        jwtCookie.setPath("/");
+        jwtCookie.setMaxAge(24 * 60 * 60);
+
+        response.addCookie(jwtCookie);
+        response.setHeader("Username: " , userDetails.getUsername());
+        response.sendRedirect("/index.html");
 
         //    logger.info("User authenticated: {}", loginDTO.getUsername());
-        return userDetails;
+        //return userDetails;
     }
+
+    /*
+    //user login with jwt token as response
+    public AuthResponseDTO authenticateUser(LoginDTO loginDTO){
+
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(loginDTO.getUsername());
+        if (userDetails == null || !passwordEncoder.matches(loginDTO.getPassword(), userDetails.getPassword())){
+            throw new ResourceNotFoundException("Invalid username or password");
+        }
+
+        String jwtToken = jwtUtil.generateJwtToken(userDetails);
+
+        return new AuthResponseDTO(
+                jwtToken,
+                userDetails.getUsername(),
+                userDetails.getAuthorities().stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .collect(Collectors.toList())
+        );
+    }
+     */
 
     public User findByUsername(String username){
         return userRepository.findByUsername(username);
@@ -158,6 +198,7 @@ public class AuthService {
 
         //saving new registered user to database, and it will auto generate id.
         Admin savedAdmin = adminRepository.save(admin);
+
         return convertToAdminDto(savedAdmin);
     }
 
@@ -192,8 +233,41 @@ public class AuthService {
         //using HttpServletResponse to return the cookie back to client alongside login info.
         response.addCookie(cookie);
 
-        //response.sendRedirect("/admin.html");
+        response.sendRedirect("/admin.html");
         return userDetails;
+    }
+
+    public void logoutAdmin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Cookie[] cookies = request.getCookies();
+        String sessionId = null;
+
+        if (cookies != null){
+            for (Cookie cookie : cookies){
+                if ("SESSIONID".equals(cookie.getName())){
+                    sessionId = cookie.getValue();
+                    break;
+                }
+            }
+        }
+
+        if (sessionId != null){
+
+            redisTemplate.delete("Session:" + sessionId);
+
+            Cookie cookie = new Cookie("SESSIONID", null);
+            cookie.setMaxAge(0);
+            cookie.setPath("/");
+            response.addCookie(cookie);
+
+            logger.info("Admin logged out. Session invalidated: {}", sessionId);
+        } else {
+            logger.warn("Logout attempted with no valid session");
+        }
+
+        //remove any authentication information
+        SecurityContextHolder.clearContext();
+        //do it from client
+        //response.sendRedirect("/adminLogin.html");
     }
 
     public Admin findAdminByUsername(String username){

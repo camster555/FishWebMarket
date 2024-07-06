@@ -16,6 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -42,53 +43,87 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
-        //Authorization which is in the header of the request that contains JWT token credentials with prefix 'Bearer'.
-        final String header = request.getHeader("Authorization");
-
-        String jwtToken = null;
-        String username = null;
-
-        //When you extract the token from the Authorization header, you are getting the entire JWT.
-        if (header != null && header.startsWith("Bearer ")){
-
-            // http request will look like 'Authorization: Bearer <your-jwt-token-here>' so after 7 index our jwt
-            //token starts.
-            jwtToken = header.substring(7);
-
-            try {
-                username = jwtUtil.getUserNameFromJwtToken(jwtToken);
-            } catch (Exception e){
-                logger.error("Cannot set user authentication: {}", e.getMessage());
-                throw new JwtErrorException("Username not found in token" + e);
-            }
-
+        if (shouldNotFilter(request)){
+            filterChain.doFilter(request,response);
+            return;
         }
 
-        //if username is found and also the token is not authenticated yet then start process to authenticate.
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null){
+        try {
+            String jwtToken = extractJwtTokenFromCookie(request);
+            //if username is found and also the token is not authenticated yet then start process to authenticate.
+            if (jwtToken != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            //first get all the details of the user
-            UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+                //then validate if the token with this user is valid
+                if (jwtUtil.validateJwtToken(jwtToken)) {
 
-            //then validate if the token with this user is valid
-            if (jwtUtil.validateJwtToken(jwtToken)){
+                    String username = jwtUtil.getUserNameFromJwtToken(jwtToken);
 
-                // This object is required by Spring Security to represent the user's authentication state.
-                UsernamePasswordAuthenticationToken authenticationToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    //first get all the details of the user
+                    UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
 
-                // Setting additional details in the token, such as the IP address and session ID.
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    // This object is required by Spring Security to represent the user's authentication state.
+                    UsernamePasswordAuthenticationToken authenticationToken =
+                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
-                //Once this is done, Spring Security knows that the user is authenticated and has the necessary roles/authorities.
-                //This is how Spring knows to allow or deny access to resources based on the user's authentication status.
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                    // Setting additional details in the token, such as the IP address and session ID.
+                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                    //Once this is done, Spring Security knows that the user is authenticated and has the necessary roles/authorities.
+                    //This is how Spring knows to allow or deny access to resources based on the user's authentication status.
+                    SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+                    logger.debug("Authenticated user: setting security context " + username);
+                } else {
+                    logger.debug("Invalid JWT token");
+                }
+            } else {
+                logger.debug("No JWT token found or authentication already set");
             }
+        } catch (Exception e){
+            logger.error("Cannot set authentication: " + e.getMessage());
         }
 
         //Validate JWT token. -> Set up authentication. -> Pass request to the next filter.
         filterChain.doFilter(request,response);
+    }
+
+    private String extractJwtFromRequest(HttpServletRequest request){
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer")){
+            return bearerToken.substring(7);
+        }
+
+        return null;
+    }
+
+    private String extractJwtTokenFromCookie(HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null){
+            for (Cookie cookie : cookies){
+                if ("JWT_TOKEN" .equals(cookie.getName())){
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
+    }
+
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException{
+
+        String path = request.getRequestURI();
+
+        return path.startsWith("/api/public") ||
+                path.contains("index.html") ||
+                path.contains("login.html") ||
+                path.contains("shop.html") ||
+                path.contains("about.html") ||
+                path.contains("contact.html") ||
+                path.contains("cart.html") ||
+                path.contains("sProduct.html") ||
+                path.contains("reset.html") ||
+                path.startsWith("/api/admin") ||
+                path.equals("/admin.html") ||
+                path.equals("/adminProduct.html");
     }
 
 }

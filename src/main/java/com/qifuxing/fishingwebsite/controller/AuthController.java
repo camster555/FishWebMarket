@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -51,10 +53,10 @@ public class AuthController {
     //don't need to handle exception since will be handled by global exception class before even reaching back to AuthController class.
     //HttpServletResponse to receive it from the Spring framework.
     @PostMapping("/login")
-    public ResponseEntity<UserDetails> userLogin(@RequestBody LoginDTO loginDTO, HttpServletResponse response) throws IOException {
+    public ResponseEntity<?> userLogin(@RequestBody LoginDTO loginDTO, HttpServletResponse response) throws IOException {
         //logger.info("Authenticating user from AuthController: {}", loginDTO.getUsername());
-        UserDetails userDetails = authService.authenticateUser(loginDTO, response);
-        return ResponseEntity.ok(userDetails);
+        authService.authenticateUser(loginDTO, response);
+        return ResponseEntity.ok().build();
     }
 
     //                                       ADMIN LOGIC STARTS HERE
@@ -76,6 +78,12 @@ public class AuthController {
         logger.info("Authenticating admin from AuthController: {}", loginDTO.getUsername());
         UserDetails userDetails = authService.authenticateAdmin(loginDTO, response);
         return ResponseEntity.ok(userDetails);
+    }
+
+    @PostMapping("/admin-logout")
+    public ResponseEntity<?> adminLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        authService.logoutAdmin(request,response);
+        return ResponseEntity.ok().build();
     }
 
 }

@@ -20,7 +20,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/api/payment")
+@RequestMapping("/api/public/payment")
 public class PaymentController {
     @Autowired
     PaymentService paymentService;

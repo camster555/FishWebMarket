@@ -6,10 +6,16 @@ function showErrorMessage(elementId, message) {
 
 console.log('authAPI.js loaded');
 
-function sendLoginData(data) {
+let csrfToken = null;
+
+function getCsrfToken(){
       // Get the CSRF token from the cookie
-      const csrfToken = getCookie('XSRF-TOKEN');
-      console.log('CSRF Token:', csrfToken); // Debugging
+      csrfToken = getCookie('XSRF-TOKEN');
+}
+
+function sendLoginData(data) {
+    getCsrfToken();
+    console.log('CSRF Token login:', csrfToken);
 
     // Send a POST request
     fetch(/*'https://qi-fuxing.com/api/auth/login'*/ /*'http://localhost:8080/api/auth/login' */ 'https://localhost:8443/api/auth/login', {
@@ -41,11 +47,14 @@ function sendLoginData(data) {
             return; // Exit the function as we are redirecting
         }
 
-        return response.json();
+        //checks if the response text is non-empty. If it is, it parses the text as JSON.
+        //If the text is empty, it returns an empty object {}.
+        return response.text().then(text => text ? JSON.parse(text) : {});
     })
     // so data here here resolves the promise returned by 'response.json()'
     .then(data => {
         console.log('Login success',data);
+        alert('Login successful!');
     })
     .catch((error) => {
         // if there is error with the promise, this will be called, this '.catch' is used to handle errors that occur during the fetch process itself such as network errors,
@@ -56,11 +65,16 @@ function sendLoginData(data) {
 }
 
 function sendRegisterData(data){
+    getCsrfToken();
+    console.log('CSRF Token register:', csrfToken);
+
     fetch(/*'https://qi-fuxing.com/api/auth/register'*/ /*'http://localhost:8080/api/auth/register'*/ 'https://localhost:8443/api/auth/register', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'X-XSRF-TOKEN': csrfToken
         },
+        credentials: 'include',
         body: JSON.stringify(data),
     })
     .then(response => {
@@ -71,6 +85,7 @@ function sendRegisterData(data){
     })
     .then(data => {
         console.log('Register success',data);
+        alert('Register successful!');
     })
     .catch((error) => {
         console.error('Error:', error);

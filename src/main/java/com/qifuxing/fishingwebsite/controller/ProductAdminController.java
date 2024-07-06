@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 
+import java.util.List;
+
 
 /**
  * FishMW1 - Fishing Market Web Application
@@ -44,6 +46,14 @@ public class ProductAdminController {
     public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO){
         ProductDTO updateProduct = productAdminService.updateProduct(id, productDTO);
         return ResponseEntity.ok(updateProduct);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ProductDTO>> getAllProducts(){
+        logger.info("getAllProducts method called in pAdmin controller");
+        List<ProductDTO> productDTOList = productAdminService.getAllProducts();
+        logger.info("Retrieved {} products", productDTOList.size());
+        return ResponseEntity.ok(productDTOList);
     }
 
     @DeleteMapping("/{id}")

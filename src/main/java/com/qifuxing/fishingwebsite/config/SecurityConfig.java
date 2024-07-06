@@ -1,6 +1,7 @@
 package com.qifuxing.fishingwebsite.config;
 
 import com.qifuxing.fishingwebsite.security.CustomSessionFilter;
+import com.qifuxing.fishingwebsite.security.JwtAuthenticationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.qifuxing.fishingwebsite.service.CustomUserDetailsService;
@@ -51,12 +52,12 @@ public class SecurityConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
     @Autowired
-    private CustomUserDetailsService customUserDetailsService;
-    @Autowired
     private UserDetailsService userDetailsService;
     //@Autowired
     @Autowired
     private CustomSessionFilter customSessionFilter;
+    @Autowired
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
@@ -73,8 +74,8 @@ public class SecurityConfig {
 
         // means that csrf token will be placed in a cookie repository that will be accessible in js
         http//.csrf().disable()
-
                 .addFilterBefore(customSessionFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 )
@@ -108,13 +109,15 @@ public class SecurityConfig {
                 }, CsrfFilter.class)
                 //DISABLE formLogin when have custom controller .
                 .authorizeRequests()
+                .antMatchers("/api/csrf-token").permitAll()
                 .antMatchers("/index.html", "/about.html", "/contact.html","/shop.html",
                         "/cart.html","/sProduct.html","/resetP.html","/adminLogin.html","/login.html").permitAll()
                 .antMatchers("/api/auth/register","/api/auth/login"
-                        ,"/api/auth/admin-login"/*",/api/auth/admin-register"*/).permitAll()
+                        ,"/api/auth/admin-login","/api/email/send-email",
+                        "/api/auth/admin-logout"/*",/api/auth/admin-register"*/).permitAll()
                 .antMatchers( "/img/**", "/style.css","/addProduct.js", "/authAPI.js",
                 "/admin.js", "/login.js", "/paginationP.js", "/popup.js", "/script.js", "/adminProduct.css",
-                "/styleAdmin.css", "/security.js","/adminLoginScript.js").permitAll()
+                "/styleAdmin.css", "/security.js","/adminLoginScript.js","/logout.js", "/reloadCheck.js").permitAll()
                 .antMatchers("/api/admin/**", "/admin.html", "/adminProduct.html").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()

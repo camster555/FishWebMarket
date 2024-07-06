@@ -28,7 +28,7 @@ function fetchAndUpdateProducts() {
     const csrfToken = getCookie('XSRF-TOKEN');
     console.log("CSRF Token:", csrfToken);
 
-    fetch('https://localhost:8443/api/product', {
+    fetch('https://localhost:8443/api/admin/product', {
         method: 'GET', // Explicitly stating the method for clarity
         credentials: 'include', // Ensures cookies are sent with the request
         headers: {

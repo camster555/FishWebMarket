@@ -12,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * FishMW1 - Fishing Market Web Application
@@ -107,6 +109,17 @@ public class ProductAdminService {
 
         Product updatedProduct = productRepository.save(existingProduct);
         return productService.convertToDTO(updatedProduct);
+    }
+
+    public List<ProductDTO> getAllProducts(){
+
+        List<Product> products = productRepository.findAll();
+
+        //here using a parallel stream to convert each Product entity to a ProductDTO concurrently
+        return products.parallelStream()
+                .map(productService::convertToDTO)
+                .collect(Collectors.toList());
+
     }
 
     public void deleteProduct(Long id){
